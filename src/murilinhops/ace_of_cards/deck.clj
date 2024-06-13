@@ -21,6 +21,9 @@
      :deck cards-including-joker
      :discard-pile []}))
 
+(defn shuffle-deck [game]
+  (update game :deck shuffle))
+
 (s/defn take-card-from-deck
   [game :- Game 
    coll :- s/Keyword]
@@ -35,6 +38,3 @@
   (reduce (fn [current-deck _] (take-card-from-deck current-deck :hand)) 
           deck 
           (range n)))
-
-(defn shuffle-deck [game]
-  (update game :deck shuffle))
