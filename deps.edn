@@ -1,5 +1,7 @@
 {:paths ["src" "resources"]
- :deps {org.clojure/clojure {:mvn/version "1.11.1"}}
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        org.clojure/tools.cli {:mvn/version "1.1.230"}
+        prismatic/schema {:mvn/version "1.4.1"}}
  :aliases
  {:run-m {:main-opts ["-m" "murilinhops.ace-of-cards.core"]}
   :run-x {:ns-default murilinhops.ace-of-cards.core
