@@ -38,3 +38,6 @@
   (reduce (fn [current-deck _] (take-card-from-deck current-deck :hand)) 
           deck 
           (range n)))
+
+(s/defn select-card-from-deck [game]
+  (filter (fn [item] (= item {:rank 5 :suit :clubs})) (:deck game)))
