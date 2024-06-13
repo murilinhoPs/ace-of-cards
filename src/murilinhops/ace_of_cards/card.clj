@@ -6,7 +6,8 @@
   #{:hearts
     :clubs
     :diamonds
-    :spades})
+    :spades
+    :joker})
 (s/defschema Suit (apply s/enum suits))
 
 (s/defschema Card {:suit Suit :rank (s/cond-pre s/Int s/Str)})

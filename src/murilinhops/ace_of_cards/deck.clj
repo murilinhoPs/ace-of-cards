@@ -5,12 +5,19 @@
 
 (s/defschema Deck {:deck [card/Card] :discard-pile [card/Card]})
 
+(s/defn insert-jokers [deck]
+  (let [joker {:rank "Joker" :suit :joker}]
+    (conj deck joker joker)))
+
 (s/defn create-deck :- Deck
   [ace-of-spades? :- s/Bool]
   (let [rank-limit (+ 1 (utils/rank-limit ace-of-spades?))
-        all-cards (for [suit card/suits ;tipo generateList(lenght(13), data: {suit, rank})
-                        rank (range 1 rank-limit)]
-                    (card/create-card ace-of-spades? suit rank))]
-    {:deck all-cards :discard-pile []}))
+        cards (for [suit  card/suits ;tipo generateList(lenght(13), data: {suit, rank})
+                    :when (not= suit :joker)
+                    rank  (range 1 rank-limit)]
+                (card/create-card ace-of-spades? suit rank))
+        cards-including-joker (insert-jokers cards)]
+    {:deck cards-including-joker :discard-pile []}))
 
-(create-deck false)
+(defn shuffle-deck [deck]
+  (update deck :deck shuffle))
