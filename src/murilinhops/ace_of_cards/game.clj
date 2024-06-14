@@ -38,9 +38,10 @@
           updated-game (update updated-deck coll conj card)]
      [updated-game card])))
 
-(defn take-cards-x-times-from-deck [deck &[n]] 
-  (reduce (fn [[current-deck _] _] (take-card-from-deck current-deck :hand)) 
-          [deck nil] (range (or n 1))))
+(defn take-cards-from-deck [deck &[n]] 
+  (-> (reduce (fn [[current-deck _] _] (take-card-from-deck current-deck :hand)) 
+          [deck nil] (range (or n 1)))
+      first))
 
 (s/defn select-card-from-coll
   [game :- Game
