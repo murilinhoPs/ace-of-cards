@@ -28,14 +28,15 @@
   [game :- Game 
    coll :- s/Keyword]
   (if (empty? (:deck game))
-    game ;TODO: add the discard-pile to the deck and shuffle it again
+    [game nil] ;TODO: add the discard-pile to the deck and shuffle it again
     (let [card (first (:deck game))
           updated-deck (update game :deck rest) ; !rest retorna todos os elementos da lista tirando o primeiro
           updated-game (update updated-deck coll conj card)]
-     updated-game)))
+     [updated-game card])))
 
-(defn take-cards-x-times-from-deck [deck {:keys [n] :or {n 1}}]
-  (reduce (fn [current-deck _] (take-card-from-deck current-deck :hand)) deck (range n)))
+(defn take-cards-x-times-from-deck [deck &[n]] 
+  (reduce (fn [[current-deck _] _] (take-card-from-deck current-deck :hand)) 
+          [deck nil] (range (or n 1))))
 
 (s/defn select-card-from-deck
   [game :- Game
