@@ -5,6 +5,10 @@
 
 (s/defschema Game {:deck [card/Card] :hand [card/Card] :discard-pile [card/Card]})
 
+(defn get-hand [game] (:hand game))
+(defn get-discard-pile [game] (:discard-pile game))
+(defn get-deck [game] (:deck game))
+
 (s/defn insert-jokers [deck]
   (let [joker {:rank "Joker" :suit :joker}]
     (conj deck joker joker)))
@@ -38,7 +42,9 @@
   (reduce (fn [[current-deck _] _] (take-card-from-deck current-deck :hand)) 
           [deck nil] (range (or n 1))))
 
-(s/defn select-card-from-deck
+(s/defn select-card-from-coll
   [game :- Game
+   coll :- s/Keyword 
    card :- card/Card] ;{:rank 5 :suit :clubs}
-  (filter (fn [item] (= item card)) (:deck game)))
+  (-> (filter (fn [item] (= item card)) (coll game))
+      first))
