@@ -12,3 +12,6 @@
     (= 12 rank) "Q"
     (= 13 rank) "K"
     :else rank))
+
+(def condj "Conj values only if is-not nill"
+  ((filter some?) conj))

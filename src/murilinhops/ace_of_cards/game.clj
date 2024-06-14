@@ -29,23 +29,37 @@
   (update game :deck shuffle))
 
 (s/defn take-card-from-deck
-  [game :- Game 
+  [game :- Game
    coll :- s/Keyword]
   (if (empty? (:deck game))
     [game nil] ;TODO: add the discard-pile to the deck and shuffle it again
     (let [card (first (:deck game))
           updated-deck (update game :deck rest) ; !rest retorna todos os elementos da lista tirando o primeiro
           updated-game (update updated-deck coll conj card)]
-     [updated-game card])))
+      [updated-game card])))
 
-(defn take-cards-from-deck [deck &[n]] 
-  (-> (reduce (fn [[current-deck _] _] (take-card-from-deck current-deck :hand)) 
-          [deck nil] (range (or n 1)))
+(defn take-cards-from-deck [deck & [n]]
+  (-> (reduce (fn [[current-deck _] _] (take-card-from-deck current-deck :hand))
+              [deck nil] (range (or n 1)))
       first))
 
-(s/defn select-card-from-coll
+(s/defn select-card
   [game :- Game
-   coll :- s/Keyword 
-   card :- card/Card] ;{:rank 5 :suit :clubs}
+   coll :- s/Keyword
+   card :- card/Card] ;{:rank 5 :suit :clubs} 
   (-> (filter (fn [item] (= item card)) (coll game))
       first))
+
+(s/defn select-cards
+  [deck :- Game
+   coll :- s/Keyword
+   cards :- [card/Card]]
+  (reduce (fn [card-list card] 
+            (->> (select-card deck coll card)
+                 (utils/condj card-list)))
+          [] cards))
+
+(s/defn discard-card
+  [game :- Game
+   card :- card/Card]
+  (assoc game :discard-pile card))
