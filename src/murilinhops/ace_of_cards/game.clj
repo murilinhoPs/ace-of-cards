@@ -2,7 +2,7 @@
   (:require [murilinhops.ace-of-cards.card :as card]
             [murilinhops.ace-of-cards.utils :as utils]
             [schema.core :as s]))
-;A M B U CARALHO
+
 (s/defschema Game {:deck [card/Card] :hand [card/Card] :discard-pile [card/Card]})
 
 (s/defn insert-jokers [deck]
@@ -34,10 +34,10 @@
           updated-game (update updated-deck coll conj card)]
      updated-game)))
 
-(defn take-cards-x-times-from-deck [deck n]
-  (reduce (fn [current-deck _] (take-card-from-deck current-deck :hand)) 
-          deck 
-          (range n)))
+(defn take-cards-x-times-from-deck [deck {:keys [n] :or {n 1}}]
+  (reduce (fn [current-deck _] (take-card-from-deck current-deck :hand)) deck (range n)))
 
-(s/defn select-card-from-deck [game]
-  (filter (fn [item] (= item {:rank 5 :suit :clubs})) (:deck game)))
+(s/defn select-card-from-deck
+  [game :- Game
+   card :- card/Card] ;{:rank 5 :suit :clubs}
+  (filter (fn [item] (= item card)) (:deck game)))
