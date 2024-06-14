@@ -1,4 +1,4 @@
-(ns murilinhops.ace-of-cards.deck
+(ns murilinhops.ace-of-cards.game
   (:require [murilinhops.ace-of-cards.card :as card]
             [murilinhops.ace-of-cards.utils :as utils]
             [schema.core :as s]))
