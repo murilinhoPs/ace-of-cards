@@ -9,7 +9,7 @@
 (defn get-discard-pile [game] (:discard-pile game))
 (defn get-deck [game] (:deck game))
 
-(s/defn insert-jokers [deck]
+(s/defn ^:private insert-jokers [deck]
   (let [joker {:rank "Joker" :suit :joker}]
     (conj deck joker joker)))
 
@@ -28,7 +28,7 @@
 (defn shuffle-deck [game]
   (update game :deck shuffle))
 
-(s/defn take-card-from-deck
+(s/defn ^:private take-card-from-deck
   [game :- Game
    coll :- s/Keyword]
   (if (empty? (:deck game))
@@ -43,7 +43,7 @@
               [deck nil] (range (or n 1)))
       first))
 
-(s/defn select-card
+(s/defn ^:private select-card
   [game :- Game
    coll :- s/Keyword
    card :- card/Card] ;{:rank 5 :suit :clubs} 
@@ -54,12 +54,25 @@
   [deck :- Game
    coll :- s/Keyword
    cards :- [card/Card]]
-  (reduce (fn [card-list card] 
-            (->> (select-card deck coll card)
-                 (utils/condj card-list)))
-          [] cards))
+  (let [actual-cards (if (sequential? cards) cards [cards])]
+    (reduce (fn [card-list card]
+              (->> (select-card deck coll card)
+                   (utils/condj card-list)))
+            [] actual-cards)))
 
-(s/defn discard-card
+(s/defn ^:private discard-card
   [game :- Game
+   coll :- s/Keyword
    card :- card/Card]
-  (assoc game :discard-pile card))
+  (print (dissoc game coll card))
+  (-> (remove #(= % card) (-> game coll))
+   )) 
+;(assoc-in [:discard-pile] card)
+
+(s/defn discard-cards
+  [game :- Game
+   coll :- s/Keyword
+   cards :- [card/Card]]
+  (let [actual-cards (if (sequential? cards) cards [cards])]
+    (reduce (fn [current-game card] (discard-card current-game coll card))
+            game actual-cards)))
