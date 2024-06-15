@@ -15,3 +15,6 @@
 
 (def condj "Conj values only if is-not nill"
   ((filter some?) conj))
+
+(defn return-sequential [data]
+  (if (sequential? data) data [data]))
