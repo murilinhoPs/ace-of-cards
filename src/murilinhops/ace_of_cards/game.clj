@@ -1,9 +1,16 @@
 (ns murilinhops.ace-of-cards.game
-  (:require [murilinhops.ace-of-cards.card :as card]
+  (:require [murilinhops.ace-of-cards.actions :as actions]
+            [murilinhops.ace-of-cards.card :as card]
             [murilinhops.ace-of-cards.utils :as utils]
             [schema.core :as s]))
 
 (s/defschema Game {:deck [card/Card] :hand [card/Card] :discard-pile [card/Card]})
+
+(def game-collections "pilhas/baralhos do jogo, mão, deck e pilha de descarte"
+  #{:deck
+    :hand
+    :discard-pile})
+(s/defschema GameCollection (apply s/enum game-collections))
 
 (defn get-hand [game] (:hand game))
 (defn get-discard-pile [game] (:discard-pile game))
@@ -21,58 +28,8 @@
                     rank  (range 1 rank-limit)]
                 (card/create-card ace-of-spades? suit rank))
         cards-including-joker (insert-jokers cards)]
-    {:hand []
-     :deck cards-including-joker
-     :discard-pile []}))
-
-(defn shuffle-deck [game]
-  (update game :deck shuffle))
-
-(s/defn ^:private take-card-from-deck
-  [game :- Game
-   coll :- s/Keyword]
-  (if (empty? (:deck game))
-    [game nil] ;TODO: add the discard-pile to the deck and shuffle it again
-    (let [card (first (:deck game))
-          updated-deck (update game :deck rest) ; !rest retorna todos os elementos da lista tirando o primeiro (trocar?)
-          updated-game (update updated-deck coll conj card)]
-      [updated-game card])))
-
-(defn take-cards-from-deck [game & [n]]
-  (-> (reduce (fn [[current-deck _] _] (take-card-from-deck current-deck :hand))
-              [game nil] (range (or n 1)))
-      first))
-
-(s/defn ^:private discard-card :- Game
-  [game :- Game
-   coll :- s/Keyword
-   card :- card/Card]
-  (let [updated-hand (into [] (remove #(= % card) (-> game coll)))  ;returns updated-hand (só a lista) 
-        updated-game (update game :discard-pile conj card)]
-    (assoc updated-game :hand updated-hand)))
-
-(s/defn discard-cards :- Game
-  [game :- Game
-   coll :- s/Keyword
-   cards :- [card/Card]]
-  (let [actual-cards (if (sequential? cards) cards [cards])]
-    (reduce (fn [current-game card] (discard-card current-game coll card))
-            game actual-cards)))
-
-(s/defn ^:private select-card
-  [game :- Game
-   coll :- s/Keyword
-   card :- card/Card] ;{:rank 5 :suit :clubs} 
-  (-> (filter (fn [item] (= item card)) (coll game))
-      first))
-
-(s/defn select-cards :- [card/Card]
-  [deck :- Game
-   coll :- s/Keyword
-   cards :- [card/Card]]
-  (let [actual-cards (if (sequential? cards) cards [cards])]
-    (reduce (fn [card-list card]
-              (->> (select-card deck coll card)
-                   (utils/condj card-list)))
-            [] actual-cards)))
-; TODO: depois de selecionar cards, faço oq?
+    (-> {:hand []
+         :deck cards-including-joker
+         :discard-pile []}
+        (actions/shuffle-deck)
+        (actions/take-cards-from-deck 5))))
