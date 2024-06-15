@@ -23,7 +23,7 @@
 (s/defn create-game :- Game
   [ace-of-spades? :- s/Bool]
   (let [rank-limit (+ 1 (utils/rank-limit ace-of-spades?))
-        cards (for [suit  card/suits ;tipo generateList(lenght(13), data: {suit, rank})
+        cards (for [suit  card/suits
                     :when (not= suit :joker)
                     rank  (range 1 rank-limit)]
                 (card/create-card ace-of-spades? suit rank))

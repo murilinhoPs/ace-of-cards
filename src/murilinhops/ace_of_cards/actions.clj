@@ -14,7 +14,7 @@
   (if (empty? (:deck game))
     [game nil] ;TODO: add the discard-pile to the deck and shuffle it again
     (let [card (first (:deck game))
-          updated-deck (update game :deck rest) ; !rest retorna todos os elementos da lista tirando o primeiro (trocar?)
+          updated-deck (update game :deck rest)
           updated-game (update updated-deck coll conj card)]
       [updated-game card])))
 
@@ -27,7 +27,7 @@
   [game :- game/Game
    coll :- game/GameCollection
    card :- card/Card]
-  (let [updated-hand (into [] (remove #(= % card) (-> game coll)))  ;returns updated-hand (só a lista) 
+  (let [updated-hand (into [] (remove #(= % card) (-> game coll)))
         updated-game (update game :discard-pile conj card)]
     (assoc updated-game :hand updated-hand)))
 
