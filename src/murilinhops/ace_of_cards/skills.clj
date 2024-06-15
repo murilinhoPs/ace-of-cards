@@ -13,10 +13,10 @@
   [game :- game/Game
    skill-level :- s/Int
    cards :- [card/Card]]
-  (let [valid-cards-count? (when (= (-> :hand game count) skill-level) true)]
+  (let [valid-cards-count? (when (= (count cards) skill-level) true)]
     (if valid-cards-count?
       (-> (actions/discard-cards game :hand cards)
           (actions/take-cards-from-deck skill-level))
-      (throw (IllegalArgumentException. "Cards count above SL")))))
+      (throw (IllegalArgumentException. "Cards count not match with SL")))))
 
 (defn use-trap-card [])

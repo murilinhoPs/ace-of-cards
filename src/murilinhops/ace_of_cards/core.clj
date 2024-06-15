@@ -1,11 +1,12 @@
 (ns murilinhops.ace-of-cards.core
   (:gen-class)
   (:require [murilinhops.ace-of-cards.actions :as actions]
-            [murilinhops.ace-of-cards.game :refer [create-game]]))
+            [murilinhops.ace-of-cards.game :as game]
+            [murilinhops.ace-of-cards.skills :as skills]))
 
 (defn new-game
   [ace-of-spades?]
-  (->  (create-game ace-of-spades?)
+  (->  (game/create-game ace-of-spades?)
        (actions/shuffle-deck)
        (actions/take-cards-from-deck 5)))
 
