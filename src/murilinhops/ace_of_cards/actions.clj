@@ -50,7 +50,7 @@
   [deck :- game/Game
    coll :- game/GameCollection
    cards :- [card/Card]]
-  (let [actual-cards (if (sequential? cards) cards [cards])]
+  (let [actual-cards (return-sequential cards)]
     (reduce (fn [card-list card]
               (->> (select-card deck coll card)
                    (utils/condj card-list)))

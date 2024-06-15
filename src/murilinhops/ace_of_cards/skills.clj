@@ -9,6 +9,14 @@
 
 (defn high-or-low [])
 
-(defn mulligan [])
+(s/defn mulligan "Descartar até [SL] cartas da sua mão e comprar esse número novamente do seu deck"
+  [game :- game/Game
+   skill-level :- s/Int
+   cards :- [card/Card]]
+  (let [valid-cards-count? (when (= (-> :hand game count) skill-level) true)]
+    (if valid-cards-count?
+      (-> (actions/discard-cards game :hand cards)
+          (actions/take-cards-from-deck skill-level))
+      (throw (IllegalArgumentException. "Cards count above SL")))))
 
 (defn use-trap-card [])
