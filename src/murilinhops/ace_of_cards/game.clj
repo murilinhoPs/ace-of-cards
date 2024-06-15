@@ -1,6 +1,5 @@
 (ns murilinhops.ace-of-cards.game
-  (:require [murilinhops.ace-of-cards.actions :as actions]
-            [murilinhops.ace-of-cards.card :as card]
+  (:require [murilinhops.ace-of-cards.card :as card]
             [murilinhops.ace-of-cards.utils :as utils]
             [schema.core :as s]))
 
@@ -28,8 +27,6 @@
                     rank  (range 1 rank-limit)]
                 (card/create-card ace-of-spades? suit rank))
         cards-including-joker (insert-jokers cards)]
-    (-> {:hand []
-         :deck cards-including-joker
-         :discard-pile []}
-        (actions/shuffle-deck)
-        (actions/take-cards-from-deck 5))))
+    {:hand []
+     :deck cards-including-joker
+     :discard-pile []}))

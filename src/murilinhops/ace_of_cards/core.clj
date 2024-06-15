@@ -1,5 +1,13 @@
 (ns murilinhops.ace-of-cards.core
-  (:gen-class))
+  (:gen-class)
+  (:require [murilinhops.ace-of-cards.actions :as actions]
+            [murilinhops.ace-of-cards.game :refer [create-game]]))
+
+(defn new-game
+  [ace-of-spades?]
+  (->  (create-game ace-of-spades?)
+       (actions/shuffle-deck)
+       (actions/take-cards-from-deck 5)))
 
 (def available-chars (reduce (fn [acc val]
                                (print (str "value:" val " char:" (char val) " "))
