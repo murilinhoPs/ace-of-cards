@@ -34,14 +34,30 @@
   (if (empty? (:deck game))
     [game nil] ;TODO: add the discard-pile to the deck and shuffle it again
     (let [card (first (:deck game))
-          updated-deck (update game :deck rest) ; !rest retorna todos os elementos da lista tirando o primeiro
+          updated-deck (update game :deck rest) ; !rest retorna todos os elementos da lista tirando o primeiro (trocar?)
           updated-game (update updated-deck coll conj card)]
       [updated-game card])))
 
-(defn take-cards-from-deck [deck & [n]]
+(defn take-cards-from-deck [game & [n]]
   (-> (reduce (fn [[current-deck _] _] (take-card-from-deck current-deck :hand))
-              [deck nil] (range (or n 1)))
+              [game nil] (range (or n 1)))
       first))
+
+(s/defn ^:private discard-card :- Game
+  [game :- Game
+   coll :- s/Keyword
+   card :- card/Card]
+  (let [updated-hand (into [] (remove #(= % card) (-> game coll)))  ;returns updated-hand (só a lista) 
+        updated-game (update game :discard-pile conj card)]
+    (assoc updated-game :hand updated-hand)))
+
+(s/defn discard-cards :- Game
+  [game :- Game
+   coll :- s/Keyword
+   cards :- [card/Card]]
+  (let [actual-cards (if (sequential? cards) cards [cards])]
+    (reduce (fn [current-game card] (discard-card current-game coll card))
+            game actual-cards)))
 
 (s/defn ^:private select-card
   [game :- Game
@@ -50,7 +66,7 @@
   (-> (filter (fn [item] (= item card)) (coll game))
       first))
 
-(s/defn select-cards
+(s/defn select-cards :- [card/Card]
   [deck :- Game
    coll :- s/Keyword
    cards :- [card/Card]]
@@ -59,20 +75,4 @@
               (->> (select-card deck coll card)
                    (utils/condj card-list)))
             [] actual-cards)))
-
-(s/defn ^:private discard-card
-  [game :- Game
-   coll :- s/Keyword
-   card :- card/Card]
-  (print (dissoc game coll card))
-  (-> (remove #(= % card) (-> game coll))
-   )) 
-;(assoc-in [:discard-pile] card)
-
-(s/defn discard-cards
-  [game :- Game
-   coll :- s/Keyword
-   cards :- [card/Card]]
-  (let [actual-cards (if (sequential? cards) cards [cards])]
-    (reduce (fn [current-game card] (discard-card current-game coll card))
-            game actual-cards)))
+; TODO: depois de selecionar cards, faço oq?
