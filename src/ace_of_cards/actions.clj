@@ -1,7 +1,7 @@
-(ns murilinhops.ace-of-cards.actions
-  (:require [murilinhops.ace-of-cards.card :as card]
-            [murilinhops.ace-of-cards.game :as game]
-            [murilinhops.ace-of-cards.utils :as utils :refer [return-sequential]]
+(ns ace-of-cards.actions
+  (:require [ace-of-cards.card :as card]
+            [ace-of-cards.game :as game]
+            [ace-of-cards.utils :as utils :refer [return-sequential]]
             [schema.core :as s]))
 
 (defn shuffle-deck [game]

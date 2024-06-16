@@ -1,6 +1,6 @@
-(ns murilinhops.ace-of-cards.core-test
+(ns ace-of-cards.core-test
   (:require [clojure.test :refer :all]
-            [murilinhops.ace-of-cards.core :refer :all]))
+            [ace-of-cards.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

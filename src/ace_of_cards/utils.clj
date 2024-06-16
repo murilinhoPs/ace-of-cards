@@ -1,4 +1,4 @@
-(ns murilinhops.ace-of-cards.utils 
+(ns ace-of-cards.utils 
   (:require [schema.core :as s]))
 
 (defn rank-limit [ace-of-spades?]

@@ -1,6 +1,6 @@
-(ns murilinhops.ace-of-cards.game
-  (:require [murilinhops.ace-of-cards.card :as card]
-            [murilinhops.ace-of-cards.utils :as utils]
+(ns ace-of-cards.game
+  (:require [ace-of-cards.card :as card]
+            [ace-of-cards.utils :as utils]
             [schema.core :as s]))
 
 (s/defschema Game {:deck [card/Card] :hand [card/Card] :discard-pile [card/Card]})

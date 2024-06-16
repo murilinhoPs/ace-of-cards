@@ -1,8 +1,8 @@
-(ns murilinhops.ace-of-cards.core
+(ns ace-of-cards.core
   (:gen-class)
-  (:require [murilinhops.ace-of-cards.actions :as actions]
-            [murilinhops.ace-of-cards.game :as game]
-            [murilinhops.ace-of-cards.skills :as skills]))
+  (:require [ace-of-cards.actions :as actions]
+            [ace-of-cards.game :as game]
+            [ace-of-cards.skills :as skills]))
 
 (defn new-game
   [ace-of-spades?]

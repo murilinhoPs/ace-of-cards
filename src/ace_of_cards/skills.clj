@@ -1,8 +1,8 @@
-(ns murilinhops.ace-of-cards.skills
-  (:require [murilinhops.ace-of-cards.card :as card]
-            [murilinhops.ace-of-cards.game :as game]
-            [murilinhops.ace-of-cards.utils :as utils]
-            [murilinhops.ace-of-cards.actions :as actions]
+(ns ace-of-cards.skills
+  (:require [ace-of-cards.card :as card]
+            [ace-of-cards.game :as game]
+            [ace-of-cards.utils :as utils]
+            [ace-of-cards.actions :as actions]
             [schema.core :as s]))
 
 (defn magic-cards "Resolve cards" [])

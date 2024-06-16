@@ -1,5 +1,5 @@
-(ns murilinhops.ace-of-cards.card
-  (:require [murilinhops.ace-of-cards.utils :as utils]
+(ns ace-of-cards.card
+  (:require [ace-of-cards.utils :as utils]
             [schema.core :as s]))
 
 (def suits "naipe da carta"
