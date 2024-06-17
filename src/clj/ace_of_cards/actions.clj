@@ -1,7 +1,7 @@
-(ns ace-of-cards.actions
-  (:require [ace-of-cards.card :as card]
-            [ace-of-cards.game :as game]
-            [ace-of-cards.utils :as utils :refer [return-sequential]]
+(ns clj.ace-of-cards.actions
+  (:require [clj.ace-of-cards.card :as card]
+            [clj.ace-of-cards.game :as game]
+            [clj.ace-of-cards.utils :as utils :refer [return-sequential]]
             [schema.core :as s]))
 
 (defn shuffle-deck [game]

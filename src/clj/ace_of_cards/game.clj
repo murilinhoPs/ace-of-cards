@@ -1,6 +1,6 @@
-(ns ace-of-cards.game
-  (:require [ace-of-cards.card :as card]
-            [ace-of-cards.utils :as utils]
+(ns clj.ace-of-cards.game
+  (:require [clj.ace-of-cards.card :as card]
+            [clj.ace-of-cards.utils :as utils]
             [schema.core :as s]))
 
 (s/defschema Game {:deck [card/Card] :hand [card/Card] :discard-pile [card/Card]})

@@ -1,4 +1,4 @@
-(ns ace-of-cards.utils 
+(ns clj.ace-of-cards.utils 
   (:require [schema.core :as s]))
 
 (defn rank-limit [ace-of-spades?]

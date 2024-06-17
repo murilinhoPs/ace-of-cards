@@ -1,8 +1,8 @@
-(ns ace-of-cards.core
+(ns clj.ace-of-cards.core
   (:gen-class)
-  (:require [ace-of-cards.actions :as actions]
-            [ace-of-cards.game :as game]
-            [ace-of-cards.skills :as skills]))
+  (:require [clj.ace-of-cards.actions :as actions]
+            [clj.ace-of-cards.game :as game]
+            [clj.ace-of-cards.skills :as skills]))
 
 (defn new-game
   [ace-of-spades?]
@@ -23,4 +23,4 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (greet {:name (first args)}))
+  (new-game (first args)))

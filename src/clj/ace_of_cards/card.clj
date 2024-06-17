@@ -1,5 +1,5 @@
-(ns ace-of-cards.card
-  (:require [ace-of-cards.utils :as utils]
+(ns clj.ace-of-cards.card
+  (:require [clj.ace-of-cards.utils :as utils]
             [schema.core :as s]))
 
 (def suits "naipe da carta"

@@ -1,8 +1,7 @@
-(ns ace-of-cards.skills
-  (:require [ace-of-cards.card :as card]
-            [ace-of-cards.game :as game]
-            [ace-of-cards.utils :as utils]
-            [ace-of-cards.actions :as actions]
+(ns clj.ace-of-cards.skills
+  (:require [clj.ace-of-cards.actions :as actions]
+            [clj.ace-of-cards.card :as card]
+            [clj.ace-of-cards.game :as game]
             [schema.core :as s]))
 
 (defn magic-cards "Resolve cards" [])
