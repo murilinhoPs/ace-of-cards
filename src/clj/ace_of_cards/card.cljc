@@ -16,8 +16,9 @@
    suit :- Suit
    rank :- s/Int]
   (let [valid-suit?  (contains? suits suit)
-        valid-rank   (<= 1 rank (utils/rank-limit ace-of-spades?))
+        valid-rank?  (<= 1 rank (utils/rank-limit ace-of-spades?))
         current-rank (utils/convert-rank rank)]
-    (if (and valid-suit? valid-rank)
+    (if (and valid-suit? valid-rank?)
       {:rank current-rank, :suit suit}
-      (throw (IllegalArgumentException. "Invalid card parameters.")))))
+      (throw (ex-info "Invalid card parameters." {:valid-suit valid-suit?
+                                                  :valid-rank valid-rank?})))))

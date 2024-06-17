@@ -1,5 +1,4 @@
-(ns clj.ace-of-cards.core
-  (:gen-class)
+(ns clj.ace-of-cards.core 
   (:require [clj.ace-of-cards.actions :as actions]
             [clj.ace-of-cards.game :as game]
             [clj.ace-of-cards.skills :as skills]))

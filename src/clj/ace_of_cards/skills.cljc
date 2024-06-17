@@ -16,6 +16,7 @@
     (if valid-cards-count?
       (-> (actions/discard-cards game :hand cards)
           (actions/take-cards-from-deck skill-level))
-      (throw (IllegalArgumentException. "Cards count not match with SL")))))
+      (throw (ex-info "Cards count not match with SL" {:SL skill-level
+                                                       :card-counts (count cards)})))))
 
 (defn use-trap-card [])
