@@ -5,7 +5,7 @@
 
 (def lib 'net.clojars.ace-of-cards)
 (def version "0.1.0-SNAPSHOT")
-(def main 'ace-of-cards.core)
+(def main 'clj.ace-of-cards.core)
 (def class-dir "target/classes")
 
 (defn test "Run all the tests." [opts]

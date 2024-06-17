@@ -20,8 +20,8 @@
   </developers>
   <scm>
     <url>https://github.com/murilinhops/ace-of-cards</url>
-    <connection>scm:git:git://github.com/murilinhops/ace-of-cards.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/murilinhops/ace-of-cards.git</developerConnection>
+    <connection>scm:git:git://github.com/murilinhops/clj.ace-of-cards.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/murilinhops/clj.ace-of-cards.git</developerConnection>
     <tag>v0.1.0-SNAPSHOT</tag>
   </scm>
   <dependencies>

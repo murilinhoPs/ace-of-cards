@@ -1,10 +1,12 @@
-{:paths ["src" "resources"]
+{:paths ["src" "resources" "src/clj" "src/cljs"]
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
         org.clojure/tools.cli {:mvn/version "1.1.230"}
         prismatic/schema {:mvn/version "1.4.1"}}
  :aliases
- {:run-m {:main-opts ["-m" "ace-of-cards.core"]}
-  :run-x {:ns-default ace-of-cards.core
+ {:cljs  {:extra-deps {thheller/shadow-cljs {:mvn/version "2.28.9"}
+                       lilactown/helix {:mvn/version "0.1.11"}}}
+  :run-m {:main-opts ["-m" "clj.ace-of-cards.core"]}
+  :run-x {:ns-default clj.ace-of-cards.core
           :exec-fn greet
           :exec-args {:name "Clojure"}}
   :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.4"}}
