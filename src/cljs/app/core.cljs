@@ -1,28 +1,24 @@
 (ns cljs.app.core
-  (:require [helix.core :refer [defnc $]]
-            [helix.hooks :as hooks]
+  (:require ["react-dom/client" :as rdom]
+            [helix.core :refer [$ defnc]]
             [helix.dom :as d]
-            ["react-dom/client" :as rdom]))
+            [helix.hooks :as hooks]
+            [clj.ace-of-cards.core :refer [new-game]]))
 
-;; define components using the `defnc` macro
-(defnc greeting
-  "A component which greets a user."
-  [{:keys [name color]}]
-   ;; use helix.dom to create DOM elements
-  (d/div {:style {:color color}}
-   "Hello, " (d/strong name) "!"))
+; show the hand (a list of cards)
 
 (defnc app []
-  (let [[state set-state] (hooks/use-state {:name "Helix User"})]
+  (let [[state set-state] (hooks/use-state {:hand []})
+        start-game (fn [] (let [data (new-game true)]
+                            (println data)
+                            (println (:hand data))
+                            (set-state assoc :hand (:hand data))))]
     (d/div
-     (d/h1 "Welcome!")
-     ;; create elements out of components
-     ($ greeting {:name (:name state)
-                  :color "green"})
-     (d/input {:value (:name state)
-               :on-change #(set-state assoc :name (.. % -target -value))}))))
+     (d/h1 "Ace of Cards - Fabula Ultima")
+     (d/input {:value (:hand state)
+               :on-change #(set-state assoc :hand (.. % -target -value))})
+     (d/button  {:on-click #(start-game)} "New Game"))))
 
-;; start your app with your favorite React renderer
 (defonce root (rdom/createRoot (js/document.getElementById "app")))
 
 (defn ^:export init []
