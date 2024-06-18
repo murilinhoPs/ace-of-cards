@@ -9,7 +9,7 @@
             [helix.hooks :as hooks]
             [schema.core :as s]))
 
-(defn ^:private set-game-state
+(defn ^:private _set-game-state
   [set-state data]
   (set-state assoc :hand (:hand data))
   (set-state assoc :deck (:deck data))
@@ -89,7 +89,7 @@
   [state set-state]
   (when (< (-> state :hand count) 5)
     (->> (actions/take-cards-from-deck state)
-         (set-game-state set-state))))
+         (_set-game-state set-state))))
 
 (defnc deck-component [{:keys [count state set-state]}]
   (d/article {:class "deck"
@@ -141,9 +141,9 @@
                                ($ card-component {:rank (:rank card) :suit (:suit card)})))))))
 
 (defnc app []
-  (let [[state set-state] (hooks/use-state {:deck [], :hand [], :discard-pile []})
-        start-game (fn [] (set-game-state set-state (new-game true)))
-        empty-state?  (-> state :deck empty?)]
+  (let [[game-state set-game-state] (hooks/use-state {:deck [], :hand [], :discard-pile []})
+        start-game (fn [] (set-game-state set-game-state (new-game true)))
+        empty-state?  (-> game-state :deck empty?)]
     (d/div
      (d/header {:class "header" :style {:display "flex"
                                         :justify-content "space-between"
@@ -164,7 +164,7 @@
      (when (not empty-state?)
        (d/div {:style {:display "flex" :justify-content "space-between" :align-items "center"}}
               (d/main  {:style {:align-self "start"}}
-                       (hand-cards (:hand state)))
+                       (hand-cards (:hand game-state)))
               (d/aside {:style {:display "flex"
                                 :align-items "center"
                                 :justify-content "center"
@@ -172,10 +172,10 @@
                                 :align-self "center"
                                 :height "80vh"
                                 :gap "200px"}}
-                       ($ deck-component {:count (-> state :deck count)
-                                          :state state
-                                          :set-state set-state})
-                       ($ discard-pile-component  {:count (-> state :discard-pile count)})))))))
+                       ($ deck-component {:count (-> game-state :deck count)
+                                          :state game-state
+                                          :set-state set-game-state})
+                       ($ discard-pile-component  {:count (-> game-state :discard-pile count)})))))))
 
 (defonce root (rdom/createRoot (js/document.getElementById "app")))
 
