@@ -91,7 +91,7 @@
     (->> (actions/take-cards-from-deck state)
          (_set-game-state set-state))))
 
-(defnc deck-component [{:keys [count state set-state]}]
+(defnc deck-component [{:keys [count state set-game-state]}]
   (d/article {:class "deck"
               :style {:position "relative"}}
              (d/p {:style {:position "absolute"
@@ -114,7 +114,7 @@
                                  -22px 24px 0 0 var(--secondary-color)"}}
                     (d/i {:class "icon-layers" :style {:font-size "54px"}}))
              (d/button  {:id "start-button"
-                         :on-click #(draw-card state set-state)
+                         :on-click #(draw-card state set-game-state)
                          :style {:margin "28px 0 0"
                                  :background-color "var(--secondary-color)"
                                  :color "var(--text-color)"
@@ -140,9 +140,29 @@
                                         :column-gap "16px"}}
                                ($ card-component {:rank (:rank card) :suit (:suit card)})))))))
 
+(defnc modal [{:keys [set-show-modal]}]
+  (let [close-modal #(set-show-modal assoc :show-modal? false)]
+    (<> (d/div {:class "dark-BG" :on-click close-modal})
+      (d/div {:class "centered"}
+             (d/div {:class "modal"}
+                    (d/div {:class "modal-header"}
+                           (d/h5 {:class "heading"} "Modal"))
+                    (d/div {:class "modal-content"}
+                           "Are you sure you want to delete the item?")
+                    (d/div {:class "modal-actions"}
+                           (d/div {:class "actions-container"}
+                                  (d/button {:class "close-btn"
+                                             :on-click close-modal}
+                                            "Cancel")
+                                  (d/button {:class "confirm-btn"
+                                             :on-click close-modal}
+                                            "Confirm"))))))))
+
 (defnc app []
-  (let [[game-state set-game-state] (hooks/use-state {:deck [], :hand [], :discard-pile []})
-        start-game (fn [] (_set-game-state set-game-state (new-game true)))
+  (let [[game-state set-game-state] (hooks/use-state {:deck [], :hand [], :discard-pile []}) 
+        [show-modal-state set-show-modal] (hooks/use-state {:show-modal? false}) 
+        start-game (fn [] (_set-game-state set-game-state (new-game true))
+                     (set-show-modal assoc :show-modal? true))
         empty-state?  (-> game-state :deck empty?)]
     (d/div
      (d/header {:class "header" :style {:display "flex"
@@ -174,8 +194,9 @@
                                 :gap "200px"}}
                        ($ deck-component {:count (-> game-state :deck count)
                                           :state game-state
-                                          :set-state set-game-state})
-                       ($ discard-pile-component  {:count (-> game-state :discard-pile count)})))))))
+                                          :set-game-state set-game-state})
+                       ($ discard-pile-component  {:count (-> game-state :discard-pile count)}))))
+     (when (:show-modal? show-modal-state) ($ modal {:set-show-modal set-show-modal})))))
 
 (defonce root (rdom/createRoot (js/document.getElementById "app")))
 
