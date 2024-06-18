@@ -142,7 +142,7 @@
 
 (defnc app []
   (let [[game-state set-game-state] (hooks/use-state {:deck [], :hand [], :discard-pile []})
-        start-game (fn [] (set-game-state set-game-state (new-game true)))
+        start-game (fn [] (_set-game-state set-game-state (new-game true)))
         empty-state?  (-> game-state :deck empty?)]
     (d/div
      (d/header {:class "header" :style {:display "flex"
