@@ -13,10 +13,12 @@
    coll :- game/GameCollection]
   (if (empty? (:deck game))
     [game nil] ;TODO: add the discard-pile to the deck and shuffle it again
-    (let [card (first (:deck game))
-          updated-deck (update game :deck rest)
-          updated-game (update updated-deck coll conj card)]
-      [updated-game card])))
+    (if (<= utils/max-cards (-> game :hand count))
+      [game nil]
+      (let [card (first (:deck game))
+            updated-deck (update game :deck rest)
+            updated-game (update updated-deck coll conj card)]
+        [updated-game card]))))
 
 (defn take-cards-from-deck [game & [n]]
   (-> (reduce (fn [[current-deck _] _] (take-card-from-deck current-deck :hand))

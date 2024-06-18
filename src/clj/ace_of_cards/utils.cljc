@@ -1,6 +1,8 @@
 (ns clj.ace-of-cards.utils 
   (:require [schema.core :as s]))
 
+(def max-cards 5)
+
 (defn rank-limit [ace-of-spades?]
   (if ace-of-spades? 7 13))
 
