@@ -60,38 +60,50 @@
                              :left "12px"
                              :font-size "36px"}}))))) ; no centro o valor, nas duas pontas
 
-(defnc discard-pile-component []
-  (d/div {:style {:border "4px solid var(--main-color)"
-                  :background-color "var(--main-bg-color)"
-                  :border-radius "16px"
-                  :padding "8px"
-                  :justify-content "center"
-                  :align-items "center"
-                  :display "flex"
-                  :flex-direction "column"
-                  :width "7rem"
-                  :height "9rem"
-                  :box-shadow "-8px 10px 0 -2.5px var(--main-bg-color), 
+(defnc discard-pile-component [{:keys [count]}]
+  (d/div {:style {:position "relative"}}
+         (d/p {:style {:position "absolute"
+                       :top "-20px"
+                       :left "-12px"
+                       :font-size "36px"}}
+              (if (= 1 count) "" (str count)))
+         (d/div {:style {:border "4px solid var(--main-color)"
+                         :background-color "var(--main-bg-color)"
+                         :border-radius "16px"
+                         :padding "8px"
+                         :justify-content "center"
+                         :align-items "center"
+                         :display "flex"
+                         :flex-direction "column"
+                         :width "7rem"
+                         :height "9rem"
+                         :box-shadow "-8px 10px 0 -2.5px var(--main-bg-color), 
                                -12px 12px 0 0 var(--main-color), 
                                -18px 20px 0 0 var(--main-bg-color), 
                                -22px 24px 0 0 var(--main-color)"}}
-         (d/i {:class "icon-trash-2" :style {:font-size "54px"}})))
+                (d/i {:class "icon-trash-2" :style {:font-size "54px"}}))))
 
-(defnc deck-component []
-  (d/div {:style {:border "4px solid var(--secondary-color)"
-                  :background-color "var(--main-bg-color)"
-                  :border-radius "16px"
-                  :padding "8px"
-                  :justify-content "center"
-                  :align-items "center"
-                  :display "flex"
-                  :width "7rem"
-                  :height "9rem" 
-                  :box-shadow "-8px 10px 0 -2.5px var(--main-bg-color), 
+(defnc deck-component [{:keys [count]}]
+  (d/div {:style {:position "relative"}}
+         (d/p {:style {:position "absolute"
+                       :top "-20px"
+                       :left "-12px"
+                       :font-size "36px"}}
+              (str count))
+         (d/div {:style {:border "4px solid var(--secondary-color)"
+                         :background-color "var(--main-bg-color)"
+                         :border-radius "16px"
+                         :padding "8px"
+                         :justify-content "center"
+                         :align-items "center"
+                         :display "flex"
+                         :width "7rem"
+                         :height "9rem"
+                         :box-shadow "-8px 10px 0 -2.5px var(--main-bg-color), 
                                -12px 12px 0 0 var(--secondary-color), 
                                -18px 20px 0 0 var(--main-bg-color), 
                                -22px 24px 0 0 var(--secondary-color)"}}
-         (d/i {:class "icon-layers" :style {:font-size "54px"}})))
+                (d/i {:class "icon-layers" :style {:font-size "54px"}}))))
 
 (defn hand-cards [hand]
   (when (< 0 (count hand))
@@ -118,9 +130,7 @@
                (d/h1 "Ace of Cards - Fabula Ultima")
                (d/button  {:id "start-button"
                            :on-click #(start-game);TODO: criar alerta de confirmação quando for reiniciar
-                           :style {:background-color  (if empty-state?
-                                                        "var(--secondary-color)"
-                                                        "var(--main-color)")
+                           :style {:background-color  (if empty-state? "var(--secondary-color)" "var(--main-color)")
                                    :color "var(--text-color)"
                                    :border "none"
                                    :border-radius "12px"
@@ -131,16 +141,16 @@
                           (if empty-state? "New Game" "Reset Game")))
      (when (not empty-state?)
        (d/main {:style {:display "flex" :justify-content "space-between" :align-items "center"}}
-        (hand-cards (:hand state))
-        (d/aside {:style {:display "flex"
-                          :align-items "center"
-                          :justify-content "center"
-                          :flex-direction "column"
-                          :align-self "center" 
-                          :height "80vh"
-                          :gap "240px"}}
-                 ($ deck-component)
-                 ($ discard-pile-component)))))))
+               (hand-cards (:hand state))
+               (d/aside {:style {:display "flex"
+                                 :align-items "center"
+                                 :justify-content "center"
+                                 :flex-direction "column"
+                                 :align-self "center"
+                                 :height "80vh"
+                                 :gap "240px"}}
+                        ($ deck-component {:count (-> state :deck count)})
+                        ($ discard-pile-component  {:count (-> state :discard-pile count)})))))))
 
 (defonce root (rdom/createRoot (js/document.getElementById "app")))
 
