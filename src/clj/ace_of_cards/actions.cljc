@@ -59,7 +59,7 @@
                    (utils/condj card-list)))
             [] actual-cards)))
 
-(s/defn play-card :- card/Card
+(s/defn play-card :- game/Game
   [game :- game/Game
    card :- card/Card]
   (let [updated-hand (into [] (remove #(= % card) (:hand game)))
