@@ -10,7 +10,7 @@
 :root {
   --main-bg-color: #21202e;
   --text-color: #f1faee;
-  --lighter-color: rgb(168, 218, 220);
+  --lighter-color: #a8dadc;
   --secondary-color: #457b9d;
   --darker-color: #1d3557;
   --main-color: #cf3441;
@@ -72,7 +72,6 @@ button:hover {
   margin: 0;
   padding: 10px;
   font-weight: 500;
-  font-size: 18px;
   text-align: center;
 }
 
@@ -83,9 +82,8 @@ button:hover {
 }
 
 .modal-actions {
-  position: absolute;
-  bottom: 2px;
-  margin-bottom: 10px;
+  bottom: 8px;
+  padding-bottom: 12px;
   width: 100%;
 }
 
@@ -130,7 +128,7 @@ button:hover {
 }
 
 .cancel-btn:hover {
-  box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+  box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.5);
   transform: translateY(-5px);
 }
 
@@ -147,7 +145,19 @@ button:hover {
 }
 
 .confirm-btn:hover {
-  box-shadow: none;
-  transform: none;
+  box-shadow: 0 10px 20px -10px rgba(168, 218, 220, 0.2);
+  transform: translateY(-5px);
   background: rgba(168, 218, 220, 0.8);
+}
+
+.confirm-btn:disabled,
+.confirm-btn[disabled]  {
+  background-color: var(--main-bg-color);
+  color: rgba(241, 250, 238, 0.7)
+}
+.confirm-btn:disabled:hover {
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+  background: var(--main-bg-color);
 }

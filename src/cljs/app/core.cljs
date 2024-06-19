@@ -140,13 +140,16 @@
                                         :column-gap "16px"}}
                                ($ card-component {:rank (:rank card) :suit (:suit card)})))))))
 
-(defnc modal [{:keys [set-show-modal]}]
-  (let [close-modal #(set-show-modal assoc :show-modal? false)]
+;; 2 botoes checkbox se clicar na carta, selecione uma ação
+
+(defnc modal [{:keys [set-show-modal confirm-click]}]
+  (let [close-modal #(set-show-modal assoc :show-modal? false)
+        confirm-action (fn [] (close-modal) confirm-click)]
     (<> (d/div {:class "dark-BG" :on-click close-modal})
         (d/div {:class "centered"}
                (d/div {:class "modal"}
                       (d/div {:class "modal-header"}
-                             (d/h5 {:class "heading"} "Modal"))
+                             (d/h3 {:class "heading"} "Modal"))
                       (d/button {:class "close-btn"  :on-click close-modal}
                                 (d/i {:class "icon-x"}))
                       (d/div {:class "modal-content"}
@@ -157,7 +160,8 @@
                                                :on-click close-modal}
                                               "Cancel")
                                     (d/button {:class "confirm-btn"
-                                               :on-click close-modal}
+                                               :on-click close-modal
+                                               :disabled true}
                                               "Confirm"))))))))
 
 (defnc app []
@@ -198,7 +202,8 @@
                                           :state game-state
                                           :set-game-state set-game-state})
                        ($ discard-pile-component  {:count (-> game-state :discard-pile count)}))))
-     (when (:show-modal? show-modal-state) ($ modal {:set-show-modal set-show-modal})))))
+     (when (:show-modal? show-modal-state) ($ modal {:set-show-modal set-show-modal
+                                                     :confirm-click #()})))))
 
 (defonce root (rdom/createRoot (js/document.getElementById "app")))
 
