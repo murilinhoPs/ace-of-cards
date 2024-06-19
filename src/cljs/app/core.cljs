@@ -11,6 +11,7 @@
 
 (defn ^:private _set-game-state
   [set-state data]
+  (set-state assoc :started? true)
   (set-state assoc :hand (:hand data))
   (set-state assoc :deck (:deck data))
   (set-state assoc :discard-pile (:discard-pile data)))
@@ -141,6 +142,7 @@
                                ($ card-component {:rank (:rank card) :suit (:suit card)})))))))
 
 ;; 2 botoes checkbox se clicar na carta, selecione uma ação
+;;event.target.value = -> event(%) . -target . -value
 
 (defnc modal [{:keys [set-show-modal confirm-click]}]
   (let [close-modal #(set-show-modal assoc :show-modal? false)
@@ -165,11 +167,11 @@
                                               "Confirm"))))))))
 
 (defnc app []
-  (let [[game-state set-game-state] (hooks/use-state {:deck [], :hand [], :discard-pile []})
+  (let [[game-state set-game-state] (hooks/use-state {:started? false, :deck [], :hand [], :discard-pile []})
         [show-modal-state set-show-modal] (hooks/use-state {:show-modal? false})
         start-game (fn [] (_set-game-state set-game-state (new-game true))
                      (set-show-modal assoc :show-modal? true))
-        empty-state?  (-> game-state :deck empty?)]
+        game-started?  (-> game-state :started?)]
     (d/div
      (d/header {:class "header" :style {:display "flex"
                                         :justify-content "space-between"
@@ -178,7 +180,7 @@
                (d/h1 "Ace of Cards - Fabula Ultima")
                (d/button  {:id "start-button"
                            :on-click #(start-game);TODO: criar alerta de confirmação quando for reiniciar
-                           :style {:background-color  (if empty-state? "var(--secondary-color)" "var(--main-color)")
+                           :style {:background-color  (if game-started? "var(--main-color)" "var(--secondary-color)")
                                    :color "var(--text-color)"
                                    :border "none"
                                    :border-radius "12px"
@@ -186,8 +188,8 @@
                                    :font-weight "bold"
                                    :max-height "36px"
                                    :min-width "120px"}}
-                          (if empty-state? "New Game" "Reset Game")))
-     (when (not empty-state?)
+                          (if game-started? "Reset Game" "New Game")))
+     (when (-> game-state :started?)
        (d/div {:style {:display "flex" :justify-content "space-between" :align-items "center"}}
               (d/main  {:style {:align-self "start"}}
                        (hand-cards (:hand game-state)))
