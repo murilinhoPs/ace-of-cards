@@ -3,17 +3,22 @@
             [clj.ace-of-cards.utils :as utils]
             [schema.core :as s]))
 
-(s/defschema Game {:deck [card/Card] :hand [card/Card] :discard-pile [card/Card]})
+(s/defschema Game {:deck [card/Card] 
+                   :hand [card/Card] 
+                   :table [card/Card] 
+                   :discard-pile [card/Card]})
 
 (def game-collections "pilhas/baralhos do jogo, mão, deck e pilha de descarte"
   #{:deck
     :hand
-    :discard-pile})
+    :discard-pile
+    :table})
 (s/defschema GameCollection (apply s/enum game-collections))
 
 (defn get-hand [game] (:hand game))
 (defn get-discard-pile [game] (:discard-pile game))
 (defn get-deck [game] (:deck game))
+(defn get-table [game] (:table game))
 
 (s/defn ^:private insert-jokers [deck]
   (let [joker {:rank "Joker" :suit :joker}]
@@ -29,4 +34,5 @@
         cards-including-joker (insert-jokers cards)]
     {:hand []
      :deck cards-including-joker
+     :table []
      :discard-pile []}))

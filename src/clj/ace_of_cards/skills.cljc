@@ -4,7 +4,7 @@
             [clj.ace-of-cards.game :as game]
             [schema.core :as s]))
 
-(defn magic-cards "Resolve cards" [])
+(defn resolve-magic-cards "Resolve cards" [])
 
 (defn high-or-low [])
 

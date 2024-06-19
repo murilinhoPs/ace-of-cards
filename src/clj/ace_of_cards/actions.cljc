@@ -29,11 +29,12 @@
   [game :- game/Game
    coll :- game/GameCollection
    card :- card/Card]
-  (let [updated-hand (into [] (remove #(= % card) (-> game coll)))
+  (let [updated-coll (into [] (remove #(= % card) (-> game coll)))
         updated-game (update game :discard-pile conj card)]
-    (assoc updated-game :hand updated-hand)))
+    (assoc updated-game coll updated-coll)))
 
 (s/defn discard-cards :- game/Game
+  "Usually the collection will be the :hand"
   [game :- game/Game
    coll :- game/GameCollection
    cards :- [card/Card]]
@@ -49,11 +50,18 @@
       first))
 
 (s/defn select-cards :- [card/Card]
-  [deck :- game/Game
+  [game :- game/Game
    coll :- game/GameCollection
    cards :- [card/Card]]
   (let [actual-cards (return-sequential cards)]
     (reduce (fn [card-list card]
-              (->> (select-card deck coll card)
+              (->> (select-card game coll card)
                    (utils/condj card-list)))
             [] actual-cards)))
+
+(s/defn play-card :- card/Card
+  [game :- game/Game
+   card :- card/Card]
+  (let [updated-hand (into [] (remove #(= % card) (:hand game)))
+        updated-game (update game :table conj card)]
+    (assoc updated-game :hand updated-hand)))

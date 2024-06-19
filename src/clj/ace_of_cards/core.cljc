@@ -7,7 +7,7 @@
   [ace-of-spades?]
   (->  (game/create-game ace-of-spades?)
        (actions/shuffle-deck)
-       (actions/take-cards-from-deck 5)))
+       (actions/take-cards-from-deck 3)))
 
 (defn -main
   "I don't do a whole lot ... yet."
