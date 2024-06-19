@@ -143,24 +143,26 @@
 (defnc modal [{:keys [set-show-modal]}]
   (let [close-modal #(set-show-modal assoc :show-modal? false)]
     (<> (d/div {:class "dark-BG" :on-click close-modal})
-      (d/div {:class "centered"}
-             (d/div {:class "modal"}
-                    (d/div {:class "modal-header"}
-                           (d/h5 {:class "heading"} "Modal"))
-                    (d/div {:class "modal-content"}
-                           "Are you sure you want to delete the item?")
-                    (d/div {:class "modal-actions"}
-                           (d/div {:class "actions-container"}
-                                  (d/button {:class "close-btn"
-                                             :on-click close-modal}
-                                            "Cancel")
-                                  (d/button {:class "confirm-btn"
-                                             :on-click close-modal}
-                                            "Confirm"))))))))
+        (d/div {:class "centered"}
+               (d/div {:class "modal"}
+                      (d/div {:class "modal-header"}
+                             (d/h5 {:class "heading"} "Modal"))
+                      (d/button {:class "close-btn"  :on-click close-modal}
+                                (d/i {:class "icon-x"}))
+                      (d/div {:class "modal-content"}
+                             "Are you sure you want to delete the item?")
+                      (d/div {:class "modal-actions"}
+                             (d/div {:class "actions-container"}
+                                    (d/button {:class "cancel-btn"
+                                               :on-click close-modal}
+                                              "Cancel")
+                                    (d/button {:class "confirm-btn"
+                                               :on-click close-modal}
+                                              "Confirm"))))))))
 
 (defnc app []
-  (let [[game-state set-game-state] (hooks/use-state {:deck [], :hand [], :discard-pile []}) 
-        [show-modal-state set-show-modal] (hooks/use-state {:show-modal? false}) 
+  (let [[game-state set-game-state] (hooks/use-state {:deck [], :hand [], :discard-pile []})
+        [show-modal-state set-show-modal] (hooks/use-state {:show-modal? false})
         start-game (fn [] (_set-game-state set-game-state (new-game true))
                      (set-show-modal assoc :show-modal? true))
         empty-state?  (-> game-state :deck empty?)]
