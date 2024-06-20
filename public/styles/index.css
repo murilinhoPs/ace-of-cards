@@ -41,4 +41,5 @@ button:hover {
 
 #header-button:hover{
   transform: translateY(-5px);
+  transition: all 0.32s ease;
 }

@@ -130,7 +130,7 @@
                     (d/i {:class "icon-layers" :style {:font-size "54px"}}))
              (d/button  {:id "start-button"
                          :on-click #(draw-card game-state set-game-state)
-                         :style {:margin "28px 0 0"
+                         :style {:margin "2rem 0 0"
                                  :background-color "var(--secondary-color)"
                                  :color "var(--text-color)"
                                  :border "none"
@@ -239,7 +239,6 @@
                                           :max-height "36px"
                                           :min-width "120px"}}
                                  (if started? "Reset Game" "New Game"))))
-     (d/br)
      (when started?
        (d/div {:style {:display "flex" :justify-content "space-between" :align-items "center"}}
               (d/main  {:style {:align-self "start"}}
