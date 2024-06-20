@@ -219,6 +219,7 @@
                                    :max-height "36px"
                                    :min-width "120px"}}
                           (if started? "Reset Game" "New Game")))
+     (d/br)
      (when started?
        (d/div {:style {:display "flex" :justify-content "space-between" :align-items "center"}}
               (d/main  {:style {:align-self "start"}}
@@ -232,9 +233,8 @@
                                 :align-items "center"
                                 :justify-content "center"
                                 :flex-direction "column"
-                                :align-self "center"
                                 :height "80vh"
-                                :gap "200px"}}
+                                :gap "120px"}}
                        ($ deck-component {:count (-> game-state :deck count)
                                           :game-state game-state
                                           :set-game-state set-game-state})
