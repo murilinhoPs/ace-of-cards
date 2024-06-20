@@ -1,6 +1,6 @@
 (ns cljs.app.core
   (:require ["react-dom/client" :as rdom]
-            [app.components.modal.card-options :refer [card-options-component]]
+            [app.components.modal.card-options :as card.option]
             [app.utils :refer [asset]]
             [clj.ace-of-cards.actions :as actions]
             [clj.ace-of-cards.card :as card]
@@ -160,7 +160,7 @@
 (defnc modal [{:keys [set-show-modal confirm-click content]}]
   (let [close-modal #(set-show-modal assoc :show? false)
         [continue? set-continue?] (hooks/use-state true)
-        confirm-action (fn [] (close-modal) (confirm-click))]
+        confirm-action (fn [] (confirm-click) (close-modal))]
     (<>
      (d/div {:class "dark-BG" :on-click close-modal})
      (d/div {:class "centered"}
@@ -208,8 +208,8 @@
        (d/div {:style {:display "flex" :justify-content "space-between" :align-items "center"}}
               (d/main  {:style {:align-self "start"}}
                        (hand-cards (:hand game-state) {:card-click (fn [] (set-modal-state {:show? true
-                                                                                            :confirm-click #(print "confirm")
-                                                                                            :content card-options-component}))}))
+                                                                                            :confirm-click card.option/confirm-action
+                                                                                            :content card.option/card-options-component}))}))
               (d/aside {:style {:display "flex"
                                 :align-items "center"
                                 :justify-content "center"
