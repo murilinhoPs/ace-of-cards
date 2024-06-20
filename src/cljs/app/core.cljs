@@ -137,9 +137,9 @@
                         "Draw")))
 
 (defn hand-cards [hand & {:keys [card-click]}]
-  (when (< 0 (count hand))
-    (d/article {:class "hand"}
-               (d/p "Hand")
+  (d/article {:class "hand" :style {:min-height "340px"}}
+             (d/h3 "Hand")
+             (when (< 0 (count hand))
                (d/div {:style {:display "flex"
                                :flex-direction "row"
                                :flex-wrap "wrap"
@@ -151,6 +151,22 @@
                                ($ card-component {:rank (:rank card)
                                                   :suit (:suit card)
                                                   :on-click #(card-click card)})))))))
+
+(defn table-cards [table & {:keys [card-click]}]
+  (d/article {:class "table"}
+             (d/h3 "Table")
+             (when (< 0 (count table))
+               (d/div {:style {:display "flex"
+                               :flex-direction "row"
+                               :flex-wrap "wrap"
+                               :gap "16px"
+                               :align-self "center"}}
+                      (for [card table]
+                        (d/div {:style {:padding "8px 0px"
+                                        :display "flex"
+                                        :column-gap "16px"}}
+                               ($ card-component {:rank (:rank card)
+                                                  :suit (:suit card)})))))))
 
 ;; * 1 input para selecionar o número de cards para comprar (number)
 ;;event.target.value = -> event(%) . -target . -value
@@ -206,10 +222,12 @@
      (when started?
        (d/div {:style {:display "flex" :justify-content "space-between" :align-items "center"}}
               (d/main  {:style {:align-self "start"}}
-                       (hand-cards (:hand game-state) {:card-click (fn [card] (println card)
-                                                                     (set-modal-state {:show? true
-                                                                                       :confirm-click #(card.option/confirm-action game-state card set-game-state)
-                                                                                       :content card.option/card-options-component}))}))
+                       (hand-cards (:hand game-state)
+                                   {:card-click (fn [card] (set-modal-state
+                                                            {:show? true
+                                                             :confirm-click #(card.option/confirm-action game-state card set-game-state)
+                                                             :content card.option/card-options-component}))})
+                       (table-cards (:table game-state)))
               (d/aside {:style {:display "flex"
                                 :align-items "center"
                                 :justify-content "center"

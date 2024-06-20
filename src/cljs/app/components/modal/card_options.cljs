@@ -1,5 +1,5 @@
 (ns app.components.modal.card-options
-  (:require [clj.ace-of-cards.actions :refer [discard-cards]]
+  (:require [clj.ace-of-cards.actions :refer [discard-cards play-card]]
             [clj.ace-of-cards.card :refer [Card]]
             [clj.ace-of-cards.game :refer [Game]]
             [helix.core :refer [<> defnc]]
@@ -19,13 +19,19 @@
   [game :- Game
    card :- Card
    set-game-state]
-  (let [new-game (discard-cards game :hand card)]
-    (print  (str "game: " new-game))
-    (set-game-state new-game)))
+  (-> (discard-cards game :hand card) 
+      set-game-state))
+
+(s/defn ^:private play-action
+  [game :- Game
+   card :- Card
+   set-game-state]
+  (-> (play-card game card)
+      set-game-state))
 
 (defn ^:private stored-card-action [option-1? option-2?]
-  (cond ;;TODO: create function to draw a card
-    option-1? (reset! confirm-state-action #(print "draw"))
+  (cond
+    option-1? (reset! confirm-state-action play-action)
     option-2? (reset! confirm-state-action discard-action)
     :else (reset! confirm-state-action nil)))
 
