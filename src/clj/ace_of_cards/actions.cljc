@@ -4,7 +4,8 @@
             [clj.ace-of-cards.utils :as utils :refer [return-sequential]]
             [schema.core :as s]))
 
-(defn shuffle-deck [game]
+(s/defn shuffle-deck :- game/Game
+  [game]
   (update game :deck shuffle))
 
 (s/defn ^:private take-card-from-deck
