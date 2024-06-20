@@ -15,27 +15,34 @@
 
 (def ^:private confirm-state-action (atom nil)) ;; *atom armazena um estado da variavel, tipo elevate state
 
-(s/defn ^:private discard-action ;;!on-going
+(s/defn ^:private discard-action
   [game :- Game
-   card :- Card]
-  (discard-cards game :hand card))
+   card :- Card
+   set-game-state]
+  (let [new-game (discard-cards game :hand card)]
+    (print  (str "game: " new-game))
+    (set-game-state new-game)))
 
-(defn ^:private card-action [option-1? option-2?]
-  (cond ;;TODO: create function to draw and discard a card
+(defn ^:private stored-card-action [option-1? option-2?]
+  (cond ;;TODO: create function to draw a card
     option-1? (reset! confirm-state-action #(print "draw"))
-    option-2? (reset! confirm-state-action #(print "discard"))
-    :else (reset! confirm-state-action  #(print "nothing"))))
+    option-2? (reset! confirm-state-action discard-action)
+    :else (reset! confirm-state-action nil)))
 
-(s/defn confirm-action [game :- game/Game] 
-  (@confirm-state-action game))
+(s/defn confirm-action
+  [game :- Game
+   card :- Card
+   set-game-state]
+  (let [function @confirm-state-action]
+    (when function
+      (function game card set-game-state))))
 
 (defnc card-options-component [{:keys [set-continue?]}]
   (let [[checked? set-checked?]  (hooks/use-state {:first? false :second? false})]
     (hooks/use-effect :once (set-continue? false))
-    (hooks/use-effect
-     [(:first? checked?) (:second? checked?)]
-     (print "change option")
-     (card-action (:first? checked?) (:second? checked?)))
+    (hooks/use-memo [(:first? checked?)
+                     (:second? checked?)]
+                    (stored-card-action (:first? checked?) (:second? checked?)))
     (d/span {:class "modal-options"}
             (d/article {:on-click #(set-option set-continue? set-checked? true false)
                         :class "modal-option"
