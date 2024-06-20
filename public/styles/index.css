@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url('https://unpkg.com/lucide-static@latest/font/lucide.css');
+
+* {
+  margin: 2px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-bg-color: #21202e;
+  --text-color: #f1faee;
+  --lighter-color: #a8dadc;
+  --secondary-color: #457b9d;
+  --darker-color: #1d3557;
+  --main-color: #cf3441;
+  --main-accent-color: #e63946;
+
+  background-color: var(--main-bg-color);
+  color: var(--text-color);
+
+  font-family: 'Lexend', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: 90%;
+}
+.hand-card-button {
+  background: var(--main-bg-color);
+}
+
+.hand-card-button:hover{
+  background: rgba(168, 218, 220, 0.06);
+}
