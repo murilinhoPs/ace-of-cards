@@ -19,7 +19,7 @@
 .modal {
   padding: 0 8px;
   width: 300px;
-  min-height: 180px;
+  min-height: 160px;
   background: var(--darker-color);
   color: white;
   z-index: 10;
