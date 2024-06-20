@@ -21,8 +21,8 @@
 (defn get-table [game] (:table game))
 
 (s/defn ^:private insert-jokers [deck]
-  (let [joker {:rank "Joker" :suit :joker}]
-    (conj deck joker joker)))
+  (let [joker (fn [id] {:rank "Joker" :suit :joker :id id})]
+    (conj deck (joker 1) (joker 2))))
 
 (s/defn create-game :- Game
   [ace-of-spades? :- s/Bool]

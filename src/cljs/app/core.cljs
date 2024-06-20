@@ -150,7 +150,7 @@
                                :flex-wrap "wrap"
                                :gap "16px"}}
                       (for [card hand]
-                        (d/div {:key (random-uuid)
+                        (d/div {:key (:id card)
                                 :style {:padding "8px 0px"
                                         :display "flex"
                                         :column-gap "16px"}}
@@ -168,7 +168,7 @@
                                :gap "16px"
                                :align-self "center"}}
                       (for [card table]
-                        (d/div {:key (random-uuid)
+                        (d/div {:key (:id card)
                                 :style {:padding "8px 0px"
                                         :display "flex"
                                         :column-gap "16px"}}
