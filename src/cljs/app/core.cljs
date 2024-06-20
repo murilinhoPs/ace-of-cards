@@ -31,6 +31,17 @@
               :confirm-click restart-fn
               :content #(d/p "Are you sure you want to restart game?")}))
 
+(defn ^:private draw-card
+  [state set-state]
+  (when (< (-> state :hand count) 5)
+    (->> (actions/take-cards-from-deck state)
+         (_set-game-state set-state))))
+
+(defn ^:private shuffle-deck
+  [state set-state]
+  (->> (actions/shuffle-deck state)
+       (_set-game-state set-state)))
+
 (defnc card-component
   [{:keys [rank suit on-click]}]
   (d/button  {:on-click (if (nil? on-click) #() #(on-click))
@@ -95,12 +106,6 @@
                                -22px 24px 0 0 var(--main-color)"}}
                     (d/i {:class "icon-trash-2" :style {:font-size "54px"}}))))
 
-(defn ^:private draw-card
-  [state set-state]
-  (when (< (-> state :hand count) 5)
-    (->> (actions/take-cards-from-deck state)
-         (_set-game-state set-state))))
-
 (defnc deck-component [{:keys [count game-state set-game-state]}]
   (d/article {:class "deck"
               :style {:position "relative"}}
@@ -144,7 +149,7 @@
                                :flex-direction "row"
                                :flex-wrap "wrap"
                                :gap "16px"}}
-                      (for [card hand] 
+                      (for [card hand]
                         (d/div {:key (random-uuid)
                                 :style {:padding "8px 0px"
                                         :display "flex"
@@ -169,9 +174,6 @@
                                         :column-gap "16px"}}
                                ($ card-component {:rank (:rank card)
                                                   :suit (:suit card)})))))))
-
-;; * 1 input para selecionar o número de cards para comprar (number)
-;;event.target.value = -> event(%) . -target . -value
 
 (defnc modal [{:keys [set-show-modal confirm-click content]}]
   (let [close-modal #(set-show-modal assoc :show? false)
@@ -210,17 +212,33 @@
                                         :align-items "center"
                                         :margin "12px 12px 48px"}}
                (d/h1 "Ace of Cards - Fabula Ultima")
-               (d/button  {:id "start-button"
-                           :on-click (if started? #(restart-game) #(start-game))
-                           :style {:background-color  (if started? "var(--main-color)" "var(--secondary-color)")
-                                   :color "var(--text-color)"
-                                   :border "none"
-                                   :border-radius "12px"
-                                   :padding "8px"
-                                   :font-weight "bold"
-                                   :max-height "36px"
-                                   :min-width "120px"}}
-                          (if started? "Reset Game" "New Game")))
+               (d/div {:style {:display "flex"
+                               :flex-direction "row"
+                               :flex-wrap "wrap"
+                               :gap "16px"
+                               :align-self "center"}}
+                      (when started? (d/button  {:id "start-button"
+                                                 :on-click #(shuffle-deck game-state set-game-state)
+                                                 :style {:background-color "var(--secondary-color)"
+                                                         :color "var(--text-color)"
+                                                         :border "none"
+                                                         :border-radius "12px"
+                                                         :padding "8px"
+                                                         :font-weight "bold"
+                                                         :max-height "36px"
+                                                         :min-width "120px"}}
+                                                "Shuffle Deck"))
+                      (d/button  {:id "start-button"
+                                  :on-click (if started? #(restart-game) #(start-game))
+                                  :style {:background-color  (if started? "var(--main-color)" "var(--secondary-color)")
+                                          :color "var(--text-color)"
+                                          :border "none"
+                                          :border-radius "12px"
+                                          :padding "8px"
+                                          :font-weight "bold"
+                                          :max-height "36px"
+                                          :min-width "120px"}}
+                                 (if started? "Reset Game" "New Game"))))
      (d/br)
      (when started?
        (d/div {:style {:display "flex" :justify-content "space-between" :align-items "center"}}
