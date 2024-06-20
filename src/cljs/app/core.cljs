@@ -144,8 +144,9 @@
                                :flex-direction "row"
                                :flex-wrap "wrap"
                                :gap "16px"}}
-                      (for [card hand]
-                        (d/div {:style {:padding "8px 0px"
+                      (for [card hand] 
+                        (d/div {:key (random-uuid)
+                                :style {:padding "8px 0px"
                                         :display "flex"
                                         :column-gap "16px"}}
                                ($ card-component {:rank (:rank card)
@@ -162,7 +163,8 @@
                                :gap "16px"
                                :align-self "center"}}
                       (for [card table]
-                        (d/div {:style {:padding "8px 0px"
+                        (d/div {:key (random-uuid)
+                                :style {:padding "8px 0px"
                                         :display "flex"
                                         :column-gap "16px"}}
                                ($ card-component {:rank (:rank card)
