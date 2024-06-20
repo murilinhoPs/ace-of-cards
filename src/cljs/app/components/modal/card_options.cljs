@@ -2,7 +2,7 @@
   (:require [clj.ace-of-cards.actions :refer [discard-cards]]
             [clj.ace-of-cards.card :refer [Card]]
             [clj.ace-of-cards.game :refer [Game]]
-            [helix.core :refer [defnc]]
+            [helix.core :refer [<> defnc]]
             [helix.dom :as d]
             [helix.hooks :as hooks]
             [schema.core :as s]))
@@ -43,20 +43,22 @@
     (hooks/use-memo [(:first? checked?)
                      (:second? checked?)]
                     (stored-card-action (:first? checked?) (:second? checked?)))
-    (d/span {:class "modal-options"}
-            (d/article {:on-click #(set-option set-continue? set-checked? true false)
-                        :class "modal-option"
-                        :style {:display "flex"}}
-                       (d/input {:class "draw-option"
-                                 :checked (:first? checked?)
-                                 :read-only true
-                                 :type "radio"})
-                       (d/label "Draw"))
-            (d/article {:on-click #(set-option set-continue? set-checked? false true)
-                        :class "modal-option"
-                        :style {:display "flex"}}
-                       (d/input {:class "discard-option"
-                                 :checked (:second? checked?)
-                                 :read-only true
-                                 :type "radio"})
-                       (d/label "Discard")))))
+    (<>
+     (d/p "Select what you want to do with this card:")
+     (d/span {:class "modal-options"}
+             (d/article {:on-click #(set-option set-continue? set-checked? true false)
+                         :class "modal-option"
+                         :style {:display "flex"}}
+                        (d/input {:class "draw-option"
+                                  :checked (:first? checked?)
+                                  :read-only true
+                                  :type "radio"})
+                        (d/label "Play"))
+             (d/article {:on-click #(set-option set-continue? set-checked? false true)
+                         :class "modal-option"
+                         :style {:display "flex"}}
+                        (d/input {:class "discard-option"
+                                  :checked (:second? checked?)
+                                  :read-only true
+                                  :type "radio"})
+                        (d/label "Discard"))))))

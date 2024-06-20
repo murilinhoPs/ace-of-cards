@@ -27,6 +27,7 @@
 }
 
 .modal-header {
+  margin: 8px;
   height: 50px;
   background: var(--darker-color);
   overflow: hidden;
@@ -36,7 +37,7 @@
 
 .heading {
   margin: 0;
-  padding: 10px;
+  padding: 12px;
   font-weight: 500;
   text-align: center;
 }
@@ -51,7 +52,7 @@
 
 .modal-actions {
   bottom: 8px;
-  padding: 12px 0;
+  padding-bottom: 12px;
   width: 100%;
 }
 
@@ -131,7 +132,6 @@
 }
 
 .modal-options {
-  margin-top: 8px;
   display: flex;
 }
 
