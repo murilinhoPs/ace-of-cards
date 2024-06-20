@@ -12,7 +12,6 @@
 
 (defn ^:private _set-game-state
   [set-state data]
-  (set-state assoc :started? true)
   (set-state assoc :hand (:hand data))
   (set-state assoc :deck (:deck data))
   (set-state assoc :table (:table data))
@@ -47,7 +46,7 @@
                       :width "10rem"
                       :height "14rem"
                       :position "relative"}}
-             (d/text {:style {:font-size "3rem"}} rank)
+             (d/p {:style {:font-size "3rem"}} rank)
              (if (= :joker suit)
                (<> (d/img {:src (asset "joker.png")
                            :width "36px"
@@ -79,7 +78,7 @@
                            :top "-20px"
                            :left "-12px"
                            :font-size "36px"}}
-                  (if (= 1 count) "" (str count)))
+                  count)
              (d/div {:style {:border "4px solid var(--main-color)"
                              :background-color "var(--main-bg-color)"
                              :border-radius "16px"
@@ -151,9 +150,8 @@
                                         :column-gap "16px"}}
                                ($ card-component {:rank (:rank card)
                                                   :suit (:suit card)
-                                                  :on-click card-click})))))))
+                                                  :on-click #(card-click card)})))))))
 
-;; 2 botoes checkbox se clicar na carta, selecione uma ação
 ;; * 1 input para selecionar o número de cards para comprar (number)
 ;;event.target.value = -> event(%) . -target . -value
 
@@ -166,7 +164,7 @@
      (d/div {:class "centered"}
             (d/div {:class "modal"}
                    (d/div {:class "modal-header"}
-                          (d/h3 {:class "heading"} "Modal"))
+                          (d/h3 {:class "heading"} "Action Required"))
                    (d/button {:class "close-btn"  :on-click close-modal}
                              (d/i {:class "icon-x"}))
                    (d/div {:class "modal-content"}
@@ -177,16 +175,17 @@
                                             :on-click close-modal}
                                            "Cancel")
                                  (d/button {:class "confirm-btn"
-                                            :on-click #(confirm-action)
+                                            :on-click confirm-action
                                             :disabled (not continue?)}
                                            "Confirm"))))))))
 
 (defnc app []
-  (let [[game-state set-game-state] (hooks/use-state {:started? false, :deck [], :hand [], :discard-pile [], :table []})
+  (let [[started? set-started?] (hooks/use-state false)
+        [game-state set-game-state] (hooks/use-state {:deck [], :hand [], :discard-pile [], :table []})
         [modal-state set-modal-state] (hooks/use-state {:show? false, :content nil, :confirm nil})
-        start-game #(_set-game-state set-game-state (new-game true))
-        restart-game #(_restart-game set-modal-state start-game)
-        game-started?  (-> game-state :started?)]
+        start-game (fn [] (set-started? true)
+                     (_set-game-state set-game-state (new-game true)))
+        restart-game #(_restart-game set-modal-state start-game)]
     (d/div
      (d/header {:class "header" :style {:display "flex"
                                         :justify-content "space-between"
@@ -194,8 +193,8 @@
                                         :margin "12px 12px 48px"}}
                (d/h1 "Ace of Cards - Fabula Ultima")
                (d/button  {:id "start-button"
-                           :on-click (if game-started? #(restart-game) #(start-game))
-                           :style {:background-color  (if game-started? "var(--main-color)" "var(--secondary-color)")
+                           :on-click (if started? #(restart-game) #(start-game))
+                           :style {:background-color  (if started? "var(--main-color)" "var(--secondary-color)")
                                    :color "var(--text-color)"
                                    :border "none"
                                    :border-radius "12px"
@@ -203,13 +202,14 @@
                                    :font-weight "bold"
                                    :max-height "36px"
                                    :min-width "120px"}}
-                          (if game-started? "Reset Game" "New Game")))
-     (when (-> game-state :started?)
+                          (if started? "Reset Game" "New Game")))
+     (when started?
        (d/div {:style {:display "flex" :justify-content "space-between" :align-items "center"}}
               (d/main  {:style {:align-self "start"}}
-                       (hand-cards (:hand game-state) {:card-click (fn [] (set-modal-state {:show? true
-                                                                                            :confirm-click card.option/confirm-action
-                                                                                            :content card.option/card-options-component}))}))
+                       (hand-cards (:hand game-state) {:card-click (fn [card] (println card)
+                                                                     (set-modal-state {:show? true
+                                                                                       :confirm-click #(card.option/confirm-action game-state card set-game-state)
+                                                                                       :content card.option/card-options-component}))}))
               (d/aside {:style {:display "flex"
                                 :align-items "center"
                                 :justify-content "center"
