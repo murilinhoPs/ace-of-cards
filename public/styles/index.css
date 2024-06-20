@@ -38,3 +38,7 @@ button:hover {
 .hand-card-button:hover{
   background: rgba(168, 218, 220, 0.06);
 }
+
+#header-button:hover{
+  transform: translateY(-5px);
+}

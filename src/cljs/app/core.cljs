@@ -217,7 +217,7 @@
                                :flex-wrap "wrap"
                                :gap "16px"
                                :align-self "center"}}
-                      (when started? (d/button  {:id "start-button"
+                      (when started? (d/button  {:id "header-button"
                                                  :on-click #(shuffle-deck game-state set-game-state)
                                                  :style {:background-color "var(--secondary-color)"
                                                          :color "var(--text-color)"
@@ -228,7 +228,7 @@
                                                          :max-height "36px"
                                                          :min-width "120px"}}
                                                 "Shuffle Deck"))
-                      (d/button  {:id "start-button"
+                      (d/button  {:id "header-button"
                                   :on-click (if started? #(restart-game) #(start-game))
                                   :style {:background-color  (if started? "var(--main-color)" "var(--secondary-color)")
                                           :color "var(--text-color)"
