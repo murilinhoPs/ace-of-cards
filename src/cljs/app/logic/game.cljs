@@ -1,5 +1,6 @@
 (ns app.logic.game 
   (:require [clj.ace-of-cards.actions :as actions]
+            [clj.ace-of-cards.core :refer [new-game]]
             [helix.dom :as d]))
 
 (defn update-game-state
@@ -8,6 +9,10 @@
   (set-state assoc :deck (:deck data))
   (set-state assoc :table (:table data))
   (set-state assoc :discard-pile (:discard-pile data)))
+
+(defn start-game [set-started? set-game-state]
+  (set-started? true)
+  (update-game-state set-game-state (new-game true)))
 
 (defn restart-game
   [set-state restart-fn]
