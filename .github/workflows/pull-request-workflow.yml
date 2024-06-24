@@ -12,4 +12,3 @@ jobs:
     name: pretend the firebase hosting PR workflow
     needs: first
     uses: ./.github/workflows/clojure-setup.yml
-    
