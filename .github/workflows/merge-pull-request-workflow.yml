@@ -7,7 +7,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-            - name: Checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
       # It is important to install java before installing clojure tools which needs java
