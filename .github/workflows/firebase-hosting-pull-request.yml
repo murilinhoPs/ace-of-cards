@@ -6,7 +6,6 @@ on:
   workflow_call
 jobs:
   build_and_preview:
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run:  npm install --save-dev shadow-cljs && npm run deploy
