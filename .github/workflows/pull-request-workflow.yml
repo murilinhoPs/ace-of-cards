@@ -6,9 +6,9 @@ on:
 jobs:
   first:
     name: pretend the CI Clojure Setup workflow
-    uses: .github/workflows/firebase-hosting-pull-request.yml@test-deploy
+    uses: /.github/workflows/firebase-hosting-pull-request.yml
    
   second:
     name: pretend the firebase hosting PR workflow
     needs: first
-    uses: .github/workflows/clojure-setup.yml@test-deploy
+    uses: /.github/workflows/clojure-setup.yml
