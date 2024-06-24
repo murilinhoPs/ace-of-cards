@@ -8,6 +8,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - run: mkdir -p "build"
+
       # It is important to install java before installing clojure tools which needs java
       # exclusions: babashka, clj-kondo and cljstyle
       - name: Prepare java
