@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Display structure of downloaded files
-        run: ls -R build/
+        run: ls -R
 
       - name: Download environment variables
         uses: actions/download-artifact@v2
