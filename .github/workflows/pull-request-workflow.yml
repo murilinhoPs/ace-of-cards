@@ -8,10 +8,10 @@ on:
 jobs:
   first:
     name: pretend the CI Clojure Setip workflow
-    uses: murilinhoPs/ace-of-cards/.github/workflows/firebase-hosting-pull-request.yml@main
+    uses: murilinhoPs/ace-of-cards/.github/workflows/firebase-hosting-pull-request.yml@@test-deploy
    
   second:
     name: pretend the firebase hosting PR workflow
     needs: first
-    uses: murilinhoPs/ace-of-cards/.github/workflows/clojure-setup.yml@main
+    uses: murilinhoPs/ace-of-cards/.github/workflows/clojure-setup.yml@test-deploy
     
