@@ -3,4 +3,8 @@
  :builds {:app {:target :browser
                 :output-dir "public/resources/js"
                 :modules {:main {:init-fn cljs.app.core/init}}
-                :devtools {:reload-strategy :full}}}}
+                :devtools {:reload-strategy :full}}
+          :app-release {:target :browser
+                        :output-dir "public/resources/js-prod"
+                        :modules {:main {:init-fn cljs.app.core/init}}
+                        :devtools {:reload-strategy :full}}}}
