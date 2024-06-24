@@ -15,7 +15,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifacts
-          path: path/to/download
+          path: path/to/artifacts/
 
       #- uses: actions/checkout@v4
       - run:  npm install --save-dev shadow-cljs && npm run deploy

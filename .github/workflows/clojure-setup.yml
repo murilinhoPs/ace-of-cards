@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build-artifacts
-          path: path/to/artifacts
+          path: path/to/artifacts/
 
       - name: Execute clojure code
         run: clojure -e "(+ 1 1)"
