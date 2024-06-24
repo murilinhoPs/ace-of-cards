@@ -9,13 +9,15 @@ permissions:
   pull-requests: write
 jobs:
   clojure:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: latest
+    steps:
+
+  build_and_preview:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # It is important to install java before installing clojure tools which needs java
       # exclusions: babashka, clj-kondo and cljstyle
@@ -43,7 +45,7 @@ jobs:
 
       # Optional step:
       - name: Cache clojure dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.m2/repository
@@ -81,10 +83,7 @@ jobs:
 
       - name: Get zprint version
         run: zprint --version
-  build_and_preview:
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-    runs-on: ubuntu-latest
-    steps:
+        
       - uses: actions/checkout@v4
       - run:  npm install --save-dev shadow-cljs && npm run deploy
       - uses: FirebaseExtended/action-hosting-deploy@v0
