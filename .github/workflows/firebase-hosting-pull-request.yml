@@ -20,11 +20,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: env-vars
-          path: .env
+          path: .github/env-vars.txt
 
       - name: Export environment variables
         run: |
-          export $(cat .env | xargs)
+          export $(cat .github/env-vars.txt| xargs)
  
       - name: Download Dependecies
         run:  npm install --save-dev shadow-cljs && npm run deploy
