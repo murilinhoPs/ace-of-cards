@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: env-vars
-          path: .github/env-vars.txt
+          path: build/env-vars.txt
 
       - name: Execute clojure code
         run: clojure -e "(+ 1 1)"

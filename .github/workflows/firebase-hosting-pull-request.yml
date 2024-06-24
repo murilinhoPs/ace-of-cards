@@ -18,7 +18,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: env-vars
-          path: .github/env-vars.txt
 
       - name: Export environment variables
         run: |
@@ -34,7 +33,7 @@ jobs:
           LEIN_JAR: ${{ secrets.LEIN_JAR }}
           LEIN_HOME: ${{ secrets.LEIN_HOME }}
           CLOJURE_INSTALL_DIR: ${{ secrets.CLOJURE_INSTALL_DIR }}
-          
+
       - name: Deploy Preview
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
