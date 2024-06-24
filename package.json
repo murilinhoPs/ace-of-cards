@@ -1,4 +1,5 @@
 {
+  "name": "ace-of-cards",
   "scripts": {
     "deploy": "npx shadow-cljs release app-release"
   },
