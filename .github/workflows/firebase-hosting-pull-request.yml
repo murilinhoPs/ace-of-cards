@@ -24,13 +24,8 @@ jobs:
         run: |
           export $(cat .github/env-vars.txt | xargs)
  
-      - name: Deploy Preview Application
+      - name: Download Dependecies
         run:  npm install --save-dev shadow-cljs && npm run deploy
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ACE_OF_CARDS }}
-          projectId: ace-of-cards
         env:
           JAVA_HOME: ${{ secrets.JAVA_HOME }}
           JAVA_HOME_21_X64: ${{ secrets.JAVA_HOME_21_X64 }}
@@ -39,3 +34,10 @@ jobs:
           LEIN_JAR: ${{ secrets.LEIN_JAR }}
           LEIN_HOME: ${{ secrets.LEIN_HOME }}
           CLOJURE_INSTALL_DIR: ${{ secrets.CLOJURE_INSTALL_DIR }}
+          
+      - name: Deploy Preview
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ACE_OF_CARDS }}
+          projectId: ace-of-cards
