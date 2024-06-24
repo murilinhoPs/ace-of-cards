@@ -47,6 +47,13 @@ jobs:
           # key: cljdeps-${{ hashFiles('build.boot') }}
           restore-keys: cljdeps-
 
+      - name: Save build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: path/to/artifacts
+
       - name: Execute clojure code
         run: clojure -e "(+ 1 1)"
 
