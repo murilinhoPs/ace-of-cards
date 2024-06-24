@@ -1,0 +1,16 @@
+name: PR Workflow
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  first:
+    name: pretend the CI Clojure Setip workflow
+    uses: murilinhoPs/ace-of-cards/.github/workflows/firebase-hosting-pull-request.yml@main
+   
+  second:
+    name: pretend the firebase hosting PR workflow
+    needs: first
+    uses: murilinhoPs/ace-of-cards/.github/workflows/clojure-setup.yml@main
+    

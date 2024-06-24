@@ -4,7 +4,7 @@
 name: Deploy to Firebase Hosting on PR
 on:
   workflow_run:
-    workflows: [CI Setup Clojure Workflow]
+    workflows: ["CI Setup Clojure Workflow"]
     types:
       - completed
 permissions:
