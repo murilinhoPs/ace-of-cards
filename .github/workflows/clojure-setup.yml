@@ -49,12 +49,21 @@ jobs:
           # key: cljdeps-${{ hashFiles('build.boot') }}
           restore-keys: cljdeps-
 
-      - name: Save build artifacts
-        if: success()
+      - name: Save environment variables
+        run: |
+          echo "JAVA_HOME=/opt/hostedtoolcache/Java_Zulu_jdk/21.0.3-9/x64" >> $GITHUB_ENV
+          echo "JAVA_HOME_21_X64=/opt/hostedtoolcache/Java_Zulu_jdk/21.0.3-9/x64" >> $GITHUB_ENV
+          echo "BOOT_HOME=/opt/hostedtoolcache/Boot/2.8.3-12-5/x64" >> $GITHUB_ENV
+          echo "BOOT_VERSION=2.8.3" >> $GITHUB_ENV
+          echo "LEIN_JAR=/opt/hostedtoolcache/Leiningen/2.9.1-12-5/x64/self-installs/leiningen-2.9.1-standalone.jar" >> $GITHUB_ENV
+          echo "LEIN_HOME=/opt/hostedtoolcache/Leiningen/2.9.1-12-5/x64" >> $GITHUB_ENV
+          echo "CLOJURE_INSTALL_DIR=/tmp/usr/local/opt/ClojureTools" >> $GITHUB_ENV
+
+      - name: Save environment variables to artifact
         uses: actions/upload-artifact@v2
         with:
-          name: build-artifacts
-          path: build/
+          name: env-vars
+          path: .github/env-vars.txt
 
       - name: Execute clojure code
         run: clojure -e "(+ 1 1)"

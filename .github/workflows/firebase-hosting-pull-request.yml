@@ -14,15 +14,28 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R build/
 
-      - name: Download build artifacts
+      - name: Download environment variables
         uses: actions/download-artifact@v2
         with:
-          name: build-artifacts
-          path: build/
+          name: env-vars
+          path: .github/env-vars.txt
+
+      - name: Export environment variables
+        run: |
+          export $(cat .github/env-vars.txt | xargs)
  
-      - run:  npm install --save-dev shadow-cljs && npm run deploy
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploy Preview Application
+        run:  npm install --save-dev shadow-cljs && npm run deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ACE_OF_CARDS }}
           projectId: ace-of-cards
+        env:
+          JAVA_HOME: ${{ secrets.JAVA_HOME }}
+          JAVA_HOME_21_X64: ${{ secrets.JAVA_HOME_21_X64 }}
+          BOOT_HOME: ${{ secrets.BOOT_HOME }}
+          BOOT_VERSION: ${{ secrets.BOOT_VERSION }}
+          LEIN_JAR: ${{ secrets.LEIN_JAR }}
+          LEIN_HOME: ${{ secrets.LEIN_HOME }}
+          CLOJURE_INSTALL_DIR: ${{ secrets.CLOJURE_INSTALL_DIR }}
