@@ -3,6 +3,10 @@ on:
   pull_request: 
       branches:
       - main
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
 jobs:
   first:
     name: pretend the CI Clojure Setup workflow
