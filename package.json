@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "deploy": "npx shadow-cljs release app-release"
+  },
   "devDependencies": {
     "shadow-cljs": "^2.28.9"
   },
