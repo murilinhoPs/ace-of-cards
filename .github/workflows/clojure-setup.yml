@@ -1,4 +1,6 @@
 name: CI Setup Clojure Workflow
+on:
+  workflow_call:
 jobs:
   setup:
     runs-on: ubuntu-latest
