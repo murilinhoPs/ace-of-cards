@@ -1,5 +1,6 @@
-(ns app.logic.game 
-  (:require [clj.ace-of-cards.actions :as actions]
+(ns app.logic.game
+  (:require [app.i18n]
+            [clj.ace-of-cards.actions :as actions]
             [clj.ace-of-cards.core :refer [new-game]]
             [helix.dom :as d]))
 
@@ -18,7 +19,7 @@
   [set-state restart-fn]
   (set-state {:show? true
               :confirm-click restart-fn
-              :content #(d/p "Are you sure you want to restart game?")}))
+              :content #(d/p (app.i18n/app-tr [:modal/restart?]))}))
 
 (defn draw-card
   [state set-state]

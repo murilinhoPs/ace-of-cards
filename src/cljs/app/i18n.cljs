@@ -25,7 +25,7 @@
         :decks {:draw "Comprar"}
         :modal {:cancel "Cancelar"
                 :ok "Confirmar"
-                :heading "Aviso"
+                :heading "Atenção"
                 :restart? "Tem certeza que quer reiniciar o jogo?"
                 :card-options {:play "Jogar"
                                :discard "Descartar"
