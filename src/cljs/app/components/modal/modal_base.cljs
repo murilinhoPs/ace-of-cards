@@ -12,7 +12,8 @@
      (d/div {:class "centered"}
             (d/div {:class "modal"}
                    (d/div {:class "modal-header"}
-                          (d/h3 {:class "heading"} "Action Required"))
+                          (d/h3 {:class "heading"} 
+                                "Action Required"))
                    (d/button {:class "close-btn"  :on-click close-modal}
                              (d/i {:class "icon-x"}))
                    (d/div {:class "modal-content"}
