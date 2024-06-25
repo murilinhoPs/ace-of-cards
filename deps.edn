@@ -1,7 +1,8 @@
 {:paths ["src" "resources" "src/clj" "src/cljs"]
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}
         org.clojure/tools.cli {:mvn/version "1.1.230"}
-        prismatic/schema {:mvn/version "1.4.1"}}
+        prismatic/schema {:mvn/version "1.4.1"}
+        com.taoensso/tempura {:mvn/version "1.5.4"}}
  :aliases
  {:cljs  {:extra-deps {thheller/shadow-cljs {:mvn/version "2.28.9"}
                        lilactown/helix {:mvn/version "0.1.11"}}}

@@ -1,5 +1,6 @@
 (ns app.components.modal.card-options
-  (:require [clj.ace-of-cards.actions :refer [discard-cards play-card]]
+  (:require [app.i18n]
+            [clj.ace-of-cards.actions :refer [discard-cards play-card]]
             [clj.ace-of-cards.card :refer [Card]]
             [clj.ace-of-cards.game :refer [Game]]
             [helix.core :refer [<> defnc]]
@@ -19,7 +20,7 @@
   [game :- Game
    card :- Card
    set-game-state]
-  (-> (discard-cards game :hand card) 
+  (-> (discard-cards game :hand card)
       set-game-state))
 
 (s/defn ^:private play-action
@@ -44,13 +45,16 @@
       (function game card set-game-state))))
 
 (defnc card-options-component [{:keys [set-continue?]}]
-  (let [[checked? set-checked?]  (hooks/use-state {:first? false :second? false})]
+  (let [[checked? set-checked?]  (hooks/use-state {:first? false :second? false})
+        content' (app.i18n/app-tr [:modal.card-options/select-action])
+        play' (app.i18n/app-tr [:modal.card-options/play])
+        discard' (app.i18n/app-tr [:modal.card-options/discard])]
     (hooks/use-effect :once (set-continue? false))
     (hooks/use-memo [(:first? checked?)
                      (:second? checked?)]
                     (stored-card-action (:first? checked?) (:second? checked?)))
     (<>
-     (d/p "Select what you want to do with this card:")
+     (d/p content')
      (d/span {:class "modal-options"}
              (d/article {:on-click #(set-option set-continue? set-checked? true false)
                          :class "modal-option"
@@ -59,7 +63,7 @@
                                   :checked (:first? checked?)
                                   :read-only true
                                   :type "radio"})
-                        (d/label "Play"))
+                        (d/label play'))
              (d/article {:on-click #(set-option set-continue? set-checked? false true)
                          :class "modal-option"
                          :style {:display "flex"}}
@@ -67,4 +71,4 @@
                                   :checked (:second? checked?)
                                   :read-only true
                                   :type "radio"})
-                        (d/label "Discard"))))))
+                        (d/label discard'))))))

@@ -1,11 +1,12 @@
 (ns app.components.cards.table 
   (:require [app.components.cards.card-component :refer [card-component]]
+            [app.i18n]
             [helix.core :refer [$]]
             [helix.dom :as d]))
 
 (defn table-cards [table & {:keys [card-click]}]
   (d/article {:class "table"}
-             (d/h3 "Table")
+             (d/h3 (app.i18n/app-tr [:cards/table]))
              (when (< 0 (count table))
                (d/div {:style {:display "flex"
                                :flex-direction "row"

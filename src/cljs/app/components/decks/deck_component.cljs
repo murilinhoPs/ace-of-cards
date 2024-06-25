@@ -1,5 +1,6 @@
 (ns app.components.decks.deck-component 
-  (:require [app.logic.game :refer [draw-card]]
+  (:require [app.i18n]
+            [app.logic.game :refer [draw-card]]
             [helix.core :refer [defnc]]
             [helix.dom :as d]))
 
@@ -14,7 +15,6 @@
              (d/div {:style {:border "4px solid var(--secondary-color)"
                              :background-color "var(--main-bg-color)"
                              :border-radius "16px"
-                             :padding "8px"
                              :justify-content "center"
                              :align-items "center"
                              :display "flex"
@@ -27,7 +27,9 @@
                     (d/i {:class "icon-layers" :style {:font-size "54px"}}))
              (d/button  {:id "start-button"
                          :on-click #(draw-card game-state set-game-state)
-                         :style {:margin "2rem 0 0"
+                         :style {:margin "2rem 0 0" 
+                                 :transform "translateX(-15px)"
+                                 :justify-content "center"
                                  :background-color "var(--secondary-color)"
                                  :color "var(--text-color)"
                                  :border "none"
@@ -36,4 +38,4 @@
                                  :font-weight "bold"
                                  :max-height "36px"
                                  :min-width "120px"}}
-                        "Draw")))
+                        (app.i18n/app-tr [:decks/draw]))))
