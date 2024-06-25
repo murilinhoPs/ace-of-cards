@@ -2,27 +2,28 @@
   (:require [taoensso.tempura :as tempura :refer [tr]]))
 
 (def i18n-dictionary
-  {:en   {:example {:foo         ":en :example/foo text"
-                    :foo_comment "Hello translator, please do x"
-                    :bar {:baz ":en :example.bar/baz text"}
-                    :greeting "Hello %s, how are you?"
-                    :inline-markdown "<tag>**strong**</tag>"
-                    :block-markdown* "<tag>**strong**</tag>"
-                    :with-exclaim!   "<tag>**strong**</tag>"
-                    :with-arguments  "Num %d = %s"
-                    :greeting-alias :example/greeting
-                    :baz-alias      :example.bar/baz}
-          :header {:shuffle-deck "Shuffle Deck"
+  {:en   {:header {:shuffle-deck "Shuffle Deck"
                    :new-game "New Game"
                    :reset-game "Reset Game"}
+          :cards {:hand "Hand"
+                  :table "Table"}
+          :decks {:draw "Draw"}
           :missing  "Missing translation"}
+
    :pt {:header {:shuffle-deck "Embaralhar"
                  :new-game "Novo Jogo"
                  :reset-game "Reiniciar"}
+        :cards {:hand "Mão"
+                :table "Mesa"}
+        :decks {:draw "Comprar"}
         :missing  "Texto não existe"}
+
    :it {:header {:shuffle-deck "Mescolare"
                  :new-game "Nuova partita"
-                 :reset-game "Ricominciare"}}})
+                 :reset-game "Ricominciare"}
+        :cards {:hand "Mano"
+                :table "Tavolo"}
+        :decks {:draw "Comprare"}}})
 
 (def check-lang
   (let [js-language (.-language js/navigator)]

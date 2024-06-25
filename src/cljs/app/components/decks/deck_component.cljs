@@ -1,5 +1,6 @@
 (ns app.components.decks.deck-component 
-  (:require [app.logic.game :refer [draw-card]]
+  (:require [app.i18n]
+            [app.logic.game :refer [draw-card]]
             [helix.core :refer [defnc]]
             [helix.dom :as d]))
 
@@ -36,4 +37,4 @@
                                  :font-weight "bold"
                                  :max-height "36px"
                                  :min-width "120px"}}
-                        "Draw")))
+                        (app.i18n/app-tr [:decks/draw]))))

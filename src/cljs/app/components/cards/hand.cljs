@@ -1,11 +1,12 @@
 (ns app.components.cards.hand 
   (:require [app.components.cards.card-component :refer [card-component]]
+            [app.i18n]
             [helix.core :refer [$]]
             [helix.dom :as d]))
 
 (defn hand-cards [hand & {:keys [card-click]}]
   (d/article {:class "hand" :style {:min-height "340px"}}
-             (d/h3 "Hand")
+             (d/h3 (app.i18n/app-tr [:cards/hand]))
              (when (< 0 (count hand))
                (d/div {:style {:display "flex"
                                :flex-direction "row"
