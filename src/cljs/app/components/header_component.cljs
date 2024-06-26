@@ -5,7 +5,6 @@
    [helix.dom :as d]))
 
 (defnc header-component [{:keys [started? start-game restart-game shuffle-deck]}]
-  (print (.-language js/navigator))
   (let [shuffle-deck' (app.i18n/app-tr [:header/shuffle-deck])
         new-game'     (app.i18n/app-tr [:header/new-game])
         reset-game'   (app.i18n/app-tr [:header/reset-game])]

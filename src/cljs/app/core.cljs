@@ -31,4 +31,5 @@
 
 (defn ^:export init []
   (js/console.log "Hello ace of cards")
+  (print (.-language js/navigator))
   (.render root ($ app)))
