@@ -12,6 +12,7 @@
                   :ok "Confirm"
                   :heading "Action Required"
                   :restart? "Are you sure you want to restart game?"
+                  :undo? "Move card back to your hand?"
                   :card-options {:play "Play"
                                  :discard "Discard"
                                  :select-action "Select what you want to do with this card:"}}
@@ -27,6 +28,7 @@
                 :ok "Confirmar"
                 :heading "Atenção"
                 :restart? "Tem certeza que quer reiniciar o jogo?"
+                :undo? "Voltar essa carta para sua mão?"
                 :card-options {:play "Jogar"
                                :discard "Descartar"
                                :select-action "Escolha o que deseja fazer com essa carta:"}}
@@ -42,6 +44,7 @@
                 :ok "Confermare"
                 :heading "Avviso"
                 :restart? "Vuoi riavviare il gioco?"
+                :undo? "Riportare la carta in mano?"
                 :card-options {:play "Usare"
                                :discard "Scartare"
                                :select-action "Che cosa vuoi fare con questa carte:"}}}})
