@@ -1,6 +1,6 @@
 (ns app.components.modal.card-options
   (:require [app.i18n]
-            [clj.ace-of-cards.actions :refer [discard-cards play-card]]
+            [app.logic.game :as logic.game]
             [clj.ace-of-cards.card :refer [Card]]
             [clj.ace-of-cards.game :refer [Game]]
             [helix.core :refer [<> defnc]]
@@ -16,24 +16,10 @@
 
 (def ^:private confirm-state-action (atom nil)) ;; *atom armazena um estado da variavel, tipo elevate state
 
-(s/defn ^:private discard-action
-  [game :- Game
-   card :- Card
-   set-game-state]
-  (-> (discard-cards game :hand card)
-      set-game-state))
-
-(s/defn ^:private play-action
-  [game :- Game
-   card :- Card
-   set-game-state]
-  (-> (play-card game card)
-      set-game-state))
-
 (defn ^:private stored-card-action [option-1? option-2?]
   (cond
-    option-1? (reset! confirm-state-action play-action)
-    option-2? (reset! confirm-state-action discard-action)
+    option-1? (reset! confirm-state-action logic.game/play-action)
+    option-2? (reset! confirm-state-action logic.game/discard-action)
     :else (reset! confirm-state-action nil)))
 
 (s/defn confirm-action
