@@ -25,14 +25,14 @@
   (-> (reduce (fn [[current-deck _] _] (take-card-from-deck current-deck :hand))
               [game nil] (range (or n 1)))
       first))
-
 (s/defn ^:private discard-card :- game/Game
   [game :- game/Game
-   coll :- game/GameCollection
-   card :- card/Card]
-  (let [updated-coll (into [] (remove #(= % card) (-> game coll)))
-        updated-game (update game :discard-pile conj card)]
-    (assoc updated-game coll updated-coll)))
+   card :- card/Card
+   current-coll :- game/GameCollection
+   target-coll :- game/GameCollection]
+  (let [updated-coll (into [] (remove #(= % card) (-> game current-coll)))
+        updated-game (update game target-coll conj card)]
+    (assoc updated-game current-coll updated-coll)))
 
 (s/defn discard-cards :- game/Game
   "Usually the collection will be the :hand"
@@ -40,7 +40,7 @@
    coll :- game/GameCollection
    cards :- [card/Card]]
   (let [actual-cards (return-sequential cards)]
-    (reduce (fn [current-game card] (discard-card current-game coll card))
+    (reduce (fn [current-game card] (discard-card current-game card coll :discard-pile))
             game actual-cards)))
 
 (s/defn ^:private select-card
@@ -63,6 +63,9 @@
 (s/defn play-card :- game/Game
   [game :- game/Game
    card :- card/Card]
-  (let [updated-hand (into [] (remove #(= % card) (:hand game)))
-        updated-game (update game :table conj card)]
-    (assoc updated-game :hand updated-hand)))
+  (discard-card game card :hand :table))
+
+(s/defn undo-play-card :- game/Game
+  [game :- game/Game
+   card :- card/Card]
+  (discard-card game card :table :hand))
