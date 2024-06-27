@@ -5,8 +5,7 @@
             [helix.dom :as d]))
 
 (defn table-cards [table & {:keys [card-click]}]
-  (let [table' (-> (app.i18n/app-tr [:cards/table])
-                   (str " - Magic Cards"))]
+  (let [table' (-> (app.i18n/app-tr [:cards/table]) (str " - Magic Cards"))]
     (d/article {:class "table"}
                (d/h3 table')
                (when (< 0 (count table))
