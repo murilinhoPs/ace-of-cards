@@ -26,9 +26,8 @@
 
 (defn draw-card
   [state set-state]
-  (when (< (-> state :hand count) 5)
-    (->> (actions/take-cards-from-deck state)
-         (update-game-state set-state))))
+  (->> (actions/take-cards-from-deck state)
+       (update-game-state set-state)))
 
 (defn shuffle-deck
   [state set-state]
