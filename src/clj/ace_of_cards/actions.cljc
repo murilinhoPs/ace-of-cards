@@ -63,7 +63,9 @@
 (s/defn play-card :- game/Game
   [game :- game/Game
    card :- card/Card]
-  (discard-card game card :hand :table))
+  (if (> utils/max-cards (-> game :table count))
+    (discard-card game card :hand :table)
+    game))
 
 (s/defn undo-play-card :- game/Game
   [game :- game/Game
