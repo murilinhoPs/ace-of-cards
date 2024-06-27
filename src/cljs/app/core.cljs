@@ -23,7 +23,8 @@
      (when started? ($ game-component {:game-state game-state
                                        :set-game-state set-game-state
                                        :set-modal-state set-modal-state}))
-     (when (:show? modal-state) ($ modal-base {:set-show-modal set-modal-state
+     (when (:show? modal-state) ($ modal-base {:game game-state
+                                               :set-show-modal set-modal-state
                                                :content  (:content modal-state)
                                                :confirm-click (:confirm-click modal-state)})))))
 

@@ -4,7 +4,7 @@
             [helix.dom :as d]
             [helix.hooks :as hooks]))
 
-(defnc modal-base [{:keys [set-show-modal confirm-click content]}]
+(defnc modal-base [{:keys [game set-show-modal confirm-click content]}]
   (let [close-modal #(set-show-modal assoc :show? false)
         [continue? set-continue?] (hooks/use-state true)
         confirm-action (fn [] (confirm-click) (close-modal))
@@ -21,7 +21,8 @@
                    (d/button {:class "close-btn"  :on-click close-modal}
                              (d/i {:class "icon-x"}))
                    (d/div {:class "modal-content"}
-                          ($ content {:set-continue? set-continue?}))
+                          ($ content {:set-continue? set-continue?
+                                      :game game}))
                    (d/div {:class "modal-actions"}
                           (d/div {:class "actions-container"}
                                  (d/button {:class "cancel-btn"
