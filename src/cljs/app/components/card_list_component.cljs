@@ -4,20 +4,16 @@
             [helix.core :refer [$ defnc]]
             [helix.dom :as d]))
 
-(defn joker-img []
-  (d/img {:src (asset "joker.png")
-          :style {:filter "invert(100%)"
-                  :width "16px"}}))
-
 (defnc joker-card []
   (d/li {:id "joker-card" :class "card-item"}
         (d/input {:type "radio"
                   :name "category"
                   :value "joker"
                   :data-label "Joker"})
-        (joker-img)
+        (d/img {:src (asset "joker.png")
+                :style {:filter "invert(100%)"
+                        :width "16px"}})
         (d/span {:class "label"} "Joker")
-        (joker-img)
 
         (d/i {:class "icon-check"})))
 
@@ -29,7 +25,6 @@
                   :data-label (str rank "-" suit)})
         (d/i {:class (card-suits->icon suit)})
         (d/span {:class "label"} rank)
-        (d/i {:class (card-suits->icon suit)})
 
         (d/i {:class "icon-check"})))
 

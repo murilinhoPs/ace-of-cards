@@ -77,8 +77,7 @@
 
 .card-item {
   display: flex;
-  justify-content: space-between;
-  align-items: start;
+  align-items: center;
   gap: 1.8rem;
   padding: 12px;
   border-bottom: 1px solid #252529;

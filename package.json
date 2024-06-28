@@ -1,5 +1,11 @@
 {
+  "name": "ace-of-cards-fabula-ultima",
+  "version": "0.0.1",
+  "private": true,
+  "author": "murilinhoPs",
+  "license": "EPL-1.0",
   "scripts": {
+    "start": "npx shadow-cljs watch app",
     "deploy": "npx shadow-cljs release app-release"
   },
   "devDependencies": {
