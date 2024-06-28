@@ -1,0 +1,142 @@
+.select {
+  position: relative;
+}
+
+#category-select {
+  width: 12rem;
+  position: relative;
+  color: #908d96;
+}
+
+#options-button {
+  all: unset; /* remove todas as props do css do elemento */
+
+  position: absolute;
+  inset: 0; /* vai se esticar/encaixar no tamanho do parent todo */
+
+  cursor: pointer;
+  z-index: 3;
+
+  /* border: 1px solid red; */
+}
+
+#select-button {
+  display: flex;
+  padding: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0.375rem;
+  border: 1px solid #252529;
+  background-color: #17171a;
+  font-size: 14px;
+}
+
+#chevrons {
+  display: flex;
+  align-items: center;
+}
+
+#chevrons i {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+#chevrons [class='icon-chevron-up'] {
+  display: none;
+}
+
+#options-button:focus + #select-button,
+#options-button:checked + #select-button {
+  outline: 1px solid var(--secondary-color);
+}
+
+#category-select:has(#options-button:checked) label,
+#options-button:checked + #select-button #chevrons {
+  color: var(--secondary-color);
+}
+
+#options-button:checked + #select-button .icon-chevron-down {
+  display: none;
+}
+
+#options-button:checked + #select-button .icon-chevron-up {
+  display: block;
+}
+
+#cards-list {
+  max-height: 200px;
+  background-color: #17171a;
+  border-radius: 12px;
+  border: 1px solid #252529;
+  padding-right: 2px;
+  display: none;
+  overflow: scroll;
+  overflow-x: hidden;
+  margin-top: 4px;
+}
+
+.card-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1.8rem;
+  padding: 12px;
+  border-bottom: 1px solid #252529;
+  position: relative;
+}
+
+#joker-card.card-item {
+  gap: 1rem;
+}
+
+.card-item i {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+.card-item i:last-child {
+  margin-left: auto;
+  color: var(--secondary-color);
+  width: 0.8rem;
+  height: 0.8rem;
+  display: none;
+}
+
+.card-item img {
+  margin: 0;
+  padding: 0;
+}
+
+.card-item:has(input:checked),
+.card-item:hover {
+  background-color: #252529;
+  cursor: pointer;
+}
+
+.card-item:has(input:focus) {
+  outline: 1px solid var(--secondary-color);
+}
+
+.card-item:has(input:checked) .icon-check {
+  display: block;
+}
+
+.card-item input {
+  all: unset; /* remove todas as props do css do elemento */
+
+  position: absolute;
+  inset: 0; /* vai se esticar/encaixar no tamanho do parent todo */
+
+  cursor: pointer;
+  z-index: 3;
+
+  /* border: 1px solid red; */
+}
+
+#category-select:has(#options-button:checked) + #cards-list {
+  display: block;
+}
+
+.select:has(.card-item:checked) #selected-value {
+  color: var(--text-color);
+}
