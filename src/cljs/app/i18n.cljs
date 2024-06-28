@@ -8,6 +8,7 @@
           :cards {:hand "Hand"
                   :table "Table"}
           :decks {:draw "Draw"}
+          :card-list {:cards "Cards"}
           :modal {:cancel "Cancel"
                   :ok "Confirm"
                   :heading "Action Required"
@@ -24,6 +25,7 @@
         :cards {:hand "Mão"
                 :table "Mesa"}
         :decks {:draw "Comprar"}
+        :card-list {:cards "Cartas"}
         :modal {:cancel "Cancelar"
                 :ok "Confirmar"
                 :heading "Atenção"
@@ -40,6 +42,7 @@
         :cards {:hand "Mano"
                 :table "Tavolo"}
         :decks {:draw "Comprare"}
+        :card-list {:cards "Carte"}
         :modal {:cancel "Annullare"
                 :ok "Confermare"
                 :heading "Avviso"

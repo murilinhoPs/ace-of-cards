@@ -1,5 +1,6 @@
 (ns app.components.card-list-component
   (:require [app.adapters.card-suit :refer [card-suits->icon]]
+            [app.i18n]
             [app.utils :refer [asset]]
             [helix.core :refer [$ defnc]]
             [helix.dom :as d]))
@@ -36,7 +37,7 @@
                             :id "options-button"})
                   (d/div {:id "select-button"}
                          (d/p {:id "selected-value"}
-                              "Cartas")
+                              (app.i18n/app-tr [:card-list/cards]))
                          (d/div {:id "chevrons"}
                                 (d/i {:class "icon-chevron-down"})
                                 (d/i {:class "icon-chevron-up"}))))
