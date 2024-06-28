@@ -6,6 +6,8 @@ I decided to create this app because I'm going to play this class in an online *
 
 ## Preview
 
+https://github.com/murilinhoPs/ace-of-cards/assets/36513735/caceed94-8fd4-40bd-bd8e-2d692ee7b044
+
 ## Features
 
 Features added until now:
