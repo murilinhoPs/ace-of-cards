@@ -3,8 +3,9 @@
             [app.components.game-component :refer [game-component]]
             [app.components.header-component :refer [header-component]]
             [app.components.modal.modal-base :refer [modal-base]]
+            [app.components.player-actions :refer [player-actions-footer]]
             [app.logic.game :as logic.game]
-            [helix.core :refer [$ defnc]]
+            [helix.core :refer [$ <> defnc]]
             [helix.dom :as d]
             [helix.hooks :as hooks]))
 
@@ -20,9 +21,12 @@
                           :start-game start-game
                           :restart-game restart-game
                           :shuffle-deck shuffle-game})
-     (when started? ($ game-component {:game-state game-state
-                                       :set-game-state set-game-state
-                                       :set-modal-state set-modal-state}))
+     (when started? (<> ($ game-component {:game-state game-state
+                                           :set-game-state set-game-state
+                                           :set-modal-state set-modal-state})
+                        ($ player-actions-footer {:game-state game-state
+                                                  :set-game-state set-game-state
+                                                  :set-modal-state set-modal-state})))
      (when (:show? modal-state) ($ modal-base {:game game-state
                                                :set-show-modal set-modal-state
                                                :content  (:content modal-state)

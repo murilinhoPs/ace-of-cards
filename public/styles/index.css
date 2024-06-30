@@ -12,9 +12,11 @@
   --text-color: #f1faee;
   --lighter-color: #a8dadc;
   --secondary-color: #457b9d;
-  --darker-color: #1d3557;
+  --darker-color: #1e314e;
   --main-color: #cf3441;
   --main-accent-color: #e63946;
+  --soft-pink: #d0687a;
+  --golden-yellow: #9e8f38;
 
   background-color: var(--main-bg-color);
   color: var(--text-color);
@@ -35,11 +37,11 @@ button:hover {
   background: var(--main-bg-color);
 }
 
-.hand-card-button:hover{
+.hand-card-button:hover {
   background: rgba(168, 218, 220, 0.06);
 }
 
-#header-button:hover{
+#header-button:hover {
   transform: translateY(-5px);
   transition: all 0.32s ease;
 }

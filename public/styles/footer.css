@@ -1,0 +1,67 @@
+#footer-actions {
+  background-color: var(--darker-color);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 12rem;
+  align-items: center;
+  padding: 16px 12px;
+}
+
+#footer-actions button {
+  min-width: 180px;
+}
+
+.footer-title {
+  position: absolute;
+  left: 2rem;
+}
+
+.resolve-cards-btn {
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  border: none;
+  color: var(--text-color);
+  background: var(--secondary-color);
+  transition: all 0.25s ease;
+}
+
+.resolve-cards-btn:hover {
+  box-shadow: 0 10px 20px -10px rgba(168, 218, 220, 0.2);
+  transform: translateY(-5px);
+  background: rgba(168, 218, 220, 0.8);
+}
+
+.resolve-cards-btn:disabled{
+  background-color: var(--main-bg-color);
+  color: rgba(241, 250, 238, 0.7);
+  transform: none;
+}
+
+.resolve-cards-btn:disabled:hover {
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+.trap-card-btn {
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  border: none;
+  color: var(--text-color);
+  background: var(--soft-pink);
+  transition: all 0.25s ease;
+}
+
+.trap-card-btn:hover {
+  box-shadow: 0 10px 20px -10px rgba(208, 104, 122, 0.2);
+  transform: translateY(-5px);
+  background: rgb(229, 125, 142);
+}
