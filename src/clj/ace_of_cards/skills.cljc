@@ -4,7 +4,12 @@
             [clj.ace-of-cards.game :as game]
             [schema.core :as s]))
 
-(defn resolve-magic-cards "Resolve cards" [])
+(s/defn resolve-magic-cards :- game/Game "Resolve cards"
+  [game :- game/Game
+   cards :- [card/Card]]
+  (if (> (-> game :table count) 0)
+    (actions/discard-cards game :table cards)
+    game))
 
 (defn high-or-low [])
 

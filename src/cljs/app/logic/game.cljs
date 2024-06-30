@@ -4,6 +4,7 @@
             [clj.ace-of-cards.card :refer [Card]]
             [clj.ace-of-cards.core :refer [new-game]]
             [clj.ace-of-cards.game :refer [Game]]
+            [clj.ace-of-cards.skills :as skills]
             [helix.dom :as d]
             [schema.core :as s]))
 
@@ -53,4 +54,11 @@
    card :- Card
    set-game-state]
   (-> (actions/undo-play-card game card)
+      set-game-state))
+
+(s/defn resolve-cards-action
+  [game :- Game 
+   cards :- [Card]
+   set-game-state]
+  (-> (skills/resolve-magic-cards game cards)
       set-game-state))
