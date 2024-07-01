@@ -1,11 +1,13 @@
 .dark-BG {
   background-color: rgba(0, 0, 0, 0.4);
   width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  min-height: 100vh;
+  z-index: 2;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* transform: translate(-50%, -50%); */
   position: absolute;
 }
 
@@ -13,16 +15,17 @@
   position: fixed;
   top: 50%;
   left: 50%;
+  z-index: 3;
   transform: translate(-50%, -50%);
 }
 
 .modal {
   padding: 0 8px;
-  width: 300px;
+  width: 360px;
+  max-width: 32rem;
   min-height: 160px;
   background: var(--darker-color);
   color: white;
-  z-index: 10;
   border-radius: 16px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
 }
@@ -39,7 +42,7 @@
 .heading {
   margin: 0;
   padding: 12px;
-  font-weight: 500;
+  font-weight: bold;
   text-align: center;
 }
 
@@ -49,7 +52,13 @@
 }
 
 .modal-content p {
-  font-size: 16px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.modal-content small {
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 .modal-actions {

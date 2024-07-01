@@ -1,9 +1,9 @@
 #footer-actions {
+  z-index: 1;
   background-color: var(--darker-color);
-  position: fixed;
-  bottom: -2px;
-  left: 0;
-  right: 0;
+  width: 100%;
+  margin-top: auto; /* take available whitespace */
+  padding-bottom: 8px;
   display: flex;
   justify-content: center;
   gap: 12rem;
@@ -22,9 +22,9 @@
 
 .resolve-cards-btn {
   font-weight: bold;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: .9rem;
   border: none;
   color: var(--text-color);
   background: var(--secondary-color);
@@ -51,9 +51,9 @@
 
 .trap-card-btn {
   font-weight: bold;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: .9rem;
   border: none;
   color: var(--text-color);
   background: var(--soft-pink);

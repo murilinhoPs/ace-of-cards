@@ -2,7 +2,7 @@
 @import url('https://unpkg.com/lucide-static@latest/font/lucide.css');
 
 * {
-  margin: 2px;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }

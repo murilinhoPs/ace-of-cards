@@ -16,21 +16,23 @@
         start-game #(logic.game/start-game set-started? set-game-state)
         restart-game #(logic.game/restart-game set-modal-state start-game)
         shuffle-game #(logic.game/shuffle-deck game-state set-game-state)]
-    (d/div
-     ($ header-component {:started? started?
-                          :start-game start-game
-                          :restart-game restart-game
-                          :shuffle-deck shuffle-game})
-     (when started? (<> ($ game-component {:game-state game-state
-                                           :set-game-state set-game-state
-                                           :set-modal-state set-modal-state})
-                        ($ player-actions-footer {:game-state game-state
-                                                  :set-game-state set-game-state
-                                                  :set-modal-state set-modal-state})))
-     (when (:show? modal-state) ($ modal-base {:game game-state
-                                               :set-show-modal set-modal-state
-                                               :content  (:content modal-state)
-                                               :confirm-click (:confirm-click modal-state)})))))
+    (d/div {:style {:display "flex"
+                    :flex-direction "column"
+                    :height "100vh"}}
+           ($ header-component {:started? started?
+                                :start-game start-game
+                                :restart-game restart-game
+                                :shuffle-deck shuffle-game})
+           (when started? (<> ($ game-component {:game-state game-state
+                                                    :set-game-state set-game-state
+                                                    :set-modal-state set-modal-state})
+                                 ($ player-actions-footer {:game-state game-state
+                                                           :set-game-state set-game-state
+                                                           :set-modal-state set-modal-state})))
+           (when (:show? modal-state) ($ modal-base {:game game-state
+                                                     :set-show-modal set-modal-state
+                                                     :content  (:content modal-state)
+                                                     :confirm-click (:confirm-click modal-state)})))))
 
 (defonce root (rdom/createRoot (js/document.getElementById "app")))
 

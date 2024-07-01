@@ -5,7 +5,7 @@
             [helix.dom :as d]))
 
 (defn hand-cards [hand & {:keys [card-click]}]
-  (d/article {:class "hand" :style {:min-height "340px"}}
+  (d/article {:class "hand" :style {:min-height "280px"}}
              (d/h3 (app.i18n/app-tr [:cards/hand]))
              (when (< 0 (count hand))
                (d/div {:style {:display "flex"

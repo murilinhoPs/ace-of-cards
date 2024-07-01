@@ -16,19 +16,19 @@
                       :align-items "center"
                       :display "flex"
                       :flex-direction "column"
-                      :width "10rem"
-                      :height "14rem"
+                      :width "8.6rem"
+                      :height "12rem"
                       :position "relative"}}
-             (d/p {:style {:font-size "3rem"}} rank)
+             (d/p {:style {:font-size "2.4rem"}} rank)
              (if (= :joker suit)
                (<> (d/img {:src (asset "joker.png")
-                           :width "36px"
+                           :width "28px"
                            :style {:filter "invert(100%)"
                                    :position "absolute"
                                    :top "12px"
                                    :left "12px"}})
                    (d/img {:src (asset "joker.png")
-                           :width "36px"
+                           :width "28px"
                            :style {:filter "invert(100%)"
                                    :position "absolute"
                                    :bottom "12px"
@@ -37,9 +37,9 @@
                          :style {:position "absolute"
                                  :top "12px"
                                  :right "12px"
-                                 :font-size "36px"}})
+                                 :font-size "28px"}})
                    (d/i {:class (card-suits->icon suit)
                          :style {:position "absolute"
                                  :bottom "12px"
                                  :left "12px"
-                                 :font-size "36px"}})))))
+                                 :font-size "28px"}})))))

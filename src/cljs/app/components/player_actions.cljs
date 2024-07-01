@@ -8,9 +8,10 @@
 (defnc ^:private trap-card-content []
   (d/div {:style {:display "flex"
                   :flex-direction "column"
-                  :gap "1.2rem"}}
+                  :gap ".4rem"}}
          (d/p (app.i18n/app-tr [:actions-footer/use-skill]))
-         (d/small {:style {:color "#b2b9af"}}
+         (d/small {:style {:color "#b2b9af"
+                           :margin "4px"}}
                   (app.i18n/app-tr [:actions-footer/trap-card-description]))))
 
 (defnc player-actions-footer  [{:keys [game-state set-game-state set-modal-state]}]
@@ -19,7 +20,7 @@
     (hooks/use-effect [(-> game-state :table count)]
                       (set-disable-resolve disable-resolve?))
     (d/footer {:id "footer-actions"}
-              (d/h3 {:class "footer-title"}
+              (d/h4 {:class "footer-title"}
                     "Player Actions:")
               (d/button {:class "resolve-cards-btn"
                          :disabled disable-resolve

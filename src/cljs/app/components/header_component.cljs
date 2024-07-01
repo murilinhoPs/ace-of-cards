@@ -10,8 +10,8 @@
     (d/header {:class "header"
                :style {:display "flex"
                        :justify-content "space-between"
-                       :align-items "center"
-                       :margin "12px 12px 48px"}}
+                       :margin "12px 12px 48px"
+                       :padding-top ".4rem"}}
               (d/h1 "Ace of Cards - Fabula Ultima")
               (d/div {:style {:display "flex"
                               :flex-direction "row"
@@ -26,7 +26,7 @@
                                               :border "none"
                                               :border-radius "12px"
                                               :padding "8px"
-                                              :font-weight "bold"
+                                              :font-weight "500"
                                               :max-height "36px"
                                               :min-width "120px"}}
                                      shuffle-deck'))
@@ -38,7 +38,7 @@
                                :border "none"
                                :border-radius "12px"
                                :padding "8px"
-                               :font-weight "bold"
+                               :font-weight "500"
                                :max-height "36px"
                                :min-width "120px"}}
                       (if started? reset-game' new-game'))))))
