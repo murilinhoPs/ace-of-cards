@@ -11,7 +11,7 @@
                :style {:display "flex"
                        :justify-content "space-between"
                        :margin "12px 12px 48px"
-                       :padding-top ".4rem"}}
+                       :padding ".4rem 12px 0"}}
               (d/h1 "Ace of Cards - Fabula Ultima")
               (d/div {:style {:display "flex"
                               :flex-direction "row"
