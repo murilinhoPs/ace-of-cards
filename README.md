@@ -6,7 +6,7 @@ I decided to create this app because I'm going to play this class in an online *
 
 ## Preview
 
-https://github.com/murilinhoPs/ace-of-cards/assets/36513735/caceed94-8fd4-40bd-bd8e-2d692ee7b044
+[![](https://img.youtube.com/vi/oKZSHhYwdLE/0.jpg)](https://youtu.be/oKZSHhYwdLE)
 
 ## Features
 
