@@ -4,7 +4,7 @@ It's a *web-app* that simulates the deck from the **Ace of Cards** class in the 
 
 I decided to create this app because I'm going to play this class in an online **RPG**, and since it's online, the **DM** and I thought it would be better to use an online tool for this. That way, he can see what I'm doing, and it makes it easier to play fully online. I couldn't find any tool for this, so I decided to create my own.
 
-## Preview
+## Preview - Video
 
 [![](https://img.youtube.com/vi/oKZSHhYwdLE/0.jpg)](https://youtu.be/oKZSHhYwdLE)
 
