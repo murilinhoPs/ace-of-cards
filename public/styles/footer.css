@@ -1,7 +1,7 @@
 #footer-actions {
   background-color: var(--darker-color);
-  position: absolute;
-  bottom: 0;
+  position: fixed;
+  bottom: -2px;
   left: 0;
   right: 0;
   display: flex;
