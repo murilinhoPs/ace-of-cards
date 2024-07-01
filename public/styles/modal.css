@@ -154,9 +154,10 @@
 }
 
 .modal-option {
+  justify-content: center;
   align-items: center;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: 12px;
   padding: 0px 20px;
   cursor: pointer;
   width: 220px;
@@ -183,8 +184,9 @@
   content: '';
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 120px;
+  transform: translate(-48%, -50%);
+  margin-right: 8rem;
+  min-width: 132px;
   height: 45px;
   border-radius: 12px;
 }

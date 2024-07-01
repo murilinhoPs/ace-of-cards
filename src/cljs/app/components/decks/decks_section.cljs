@@ -16,11 +16,11 @@
                       :gap "8rem"}}
              (d/div {:style {:display "flex"
                              :max-height "170px"
-                             :gap "1.6rem"}}
+                             :gap "2rem"}}
                     ($ card-list-component {:coll (:deck game-state)})
                     ($ deck-component {:count deck-count :game-state game-state :set-game-state set-game-state}))
              (d/div {:style {:display "flex"
-                             :gap "1.6rem"
+                             :gap "2rem"
                              :justify-content "end"}}
                     ($ card-list-component {:coll (-> game-state :discard-pile reverse)})
                     ($ discard-pile-component  {:count discard-pile-count})))))
