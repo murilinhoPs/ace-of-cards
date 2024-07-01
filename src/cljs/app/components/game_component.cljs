@@ -10,7 +10,7 @@
 
 (defnc game-component [{:keys [game-state set-game-state set-modal-state]}]
   (d/div {:style {:display "flex" 
-                  :padding "0 4px"
+                  :padding "0 1.6rem"
                   :justify-content "space-between"
                   :align-items "center"}}
          (d/main  {:style {:align-self "start"}}
