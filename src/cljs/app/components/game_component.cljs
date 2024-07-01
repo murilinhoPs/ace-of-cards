@@ -12,7 +12,8 @@
   (d/div {:style {:display "flex" 
                   :padding "0 1.6rem"
                   :justify-content "space-between"
-                  :align-items "center"}}
+                  :align-items "center"
+                  :margin-bottom "3.2rem"}}
          (d/main  {:style {:align-self "start"}}
                   (hand-cards (:hand game-state)
                               {:card-click (fn [card] (set-modal-state
