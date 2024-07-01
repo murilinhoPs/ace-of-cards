@@ -26,7 +26,8 @@
                                               :border "none"
                                               :border-radius "12px"
                                               :padding "8px"
-                                              :font-weight "500"
+                                              :font-weight "bold"
+                                              :font-size ".9rem"
                                               :max-height "36px"
                                               :min-width "120px"}}
                                      shuffle-deck'))
@@ -38,7 +39,8 @@
                                :border "none"
                                :border-radius "12px"
                                :padding "8px"
-                               :font-weight "500"
+                               :font-weight "bold"
+                               :font-size ".9rem"
                                :max-height "36px"
                                :min-width "120px"}}
                       (if started? reset-game' new-game'))))))

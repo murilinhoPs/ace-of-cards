@@ -34,8 +34,9 @@
                                  :color "var(--text-color)"
                                  :border "none"
                                  :border-radius "12px"
-                                 :padding "8px"
-                                 :font-weight "500"
+                                 :padding "8px 12px"
+                                 :font-size ".9rem"
+                                 :font-weight "bold"
                                  :max-height "36px"
                                  :min-width "80px"}}
                         (app.i18n/app-tr [:decks/draw]))))

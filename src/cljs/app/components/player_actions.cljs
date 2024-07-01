@@ -20,7 +20,7 @@
     (hooks/use-effect [(-> game-state :table count)]
                       (set-disable-resolve disable-resolve?))
     (d/footer {:id "footer-actions"}
-              (d/h4 {:class "footer-title"}
+              (d/h3 {:class "footer-title"}
                     "Player Actions:")
               (d/button {:class "resolve-cards-btn"
                          :disabled disable-resolve
