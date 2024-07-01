@@ -62,3 +62,9 @@
    set-game-state]
   (-> (skills/resolve-magic-cards game cards)
       set-game-state))
+
+(s/defn use-trap-card-action
+  [game :- Game
+   set-game-state]
+  (-> (skills/use-trap-card game)
+      set-game-state))

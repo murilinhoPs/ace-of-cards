@@ -24,4 +24,10 @@
       (throw (ex-info "Cards count not match with SL" {:SL skill-level
                                                        :card-counts (count cards)})))))
 
-(defn use-trap-card [])
+(s/defn use-trap-card
+  [game :- game/Game]
+  (let [deck (:deck game)]
+    (if (> (count deck) 0)
+      (->> (last deck)
+           (actions/discard-cards game :deck))
+      game)))
