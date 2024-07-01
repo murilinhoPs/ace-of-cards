@@ -1,8 +1,7 @@
 (ns app.components.header-component
-  (:require
-   [app.i18n]
-   [helix.core :refer [defnc]]
-   [helix.dom :as d]))
+  (:require [app.i18n]
+            [helix.core :refer [defnc]]
+            [helix.dom :as d]))
 
 (defnc header-component [{:keys [started? start-game restart-game shuffle-deck]}]
   (let [shuffle-deck' (app.i18n/app-tr [:header/shuffle-deck])

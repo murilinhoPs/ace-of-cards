@@ -1,6 +1,7 @@
 (ns app.components.player-actions
-  (:require [app.logic.game :as logic.game]
-            [helix.core :refer [$ <> defnc]]
+  (:require [app.i18n]
+            [app.logic.game :as logic.game]
+            [helix.core :refer [$ defnc]]
             [helix.dom :as d]
             [helix.hooks :as hooks]))
 
@@ -8,10 +9,9 @@
   (d/div {:style {:display "flex"
                   :flex-direction "column"
                   :gap "1.2rem"}}
-         (d/p "Usar essa habilidade? Essa ação não pode ser desfeita!")
+         (d/p (app.i18n/app-tr [:actions-footer/use-skill]))
          (d/small {:style {:color "#b2b9af"}}
-          "Essa habilidade vai colocar a última carta do deck em primeiro lugar na pilha de descarte. 
-            Se essa carta for do naipe e do valor escolhido, ou um coringa, você pode usar um feitiço")))
+                  (app.i18n/app-tr [:actions-footer/trap-card-description]))))
 
 (defnc player-actions-footer  [{:keys [game-state set-game-state set-modal-state]}]
   (let [[disable-resolve set-disable-resolve] (hooks/use-state false)
@@ -26,7 +26,7 @@
                          :on-click (fn [] (set-modal-state
                                            {:show? true?
                                             :confirm-click (partial logic.game/resolve-cards-action game-state (:table game-state) set-game-state)
-                                            :content #(d/p "Usar essas cartas? Essa ação não pode ser desfeita!")}))}
+                                            :content #(d/p (app.i18n/app-tr [:actions-footer/use-cards]))}))}
                         "Resolve Cards")
               (d/button {:class "trap-card-btn"
                          :on-click (fn [] (set-modal-state
