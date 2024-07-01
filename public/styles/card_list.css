@@ -15,7 +15,6 @@
   inset: 0; /* vai se esticar/encaixar no tamanho do parent todo */
 
   cursor: pointer;
-  z-index: 1;
 
   /* border: 1px solid red; */
 }
@@ -47,6 +46,7 @@
 
 #options-button:focus + #select-button,
 #options-button:checked + #select-button {
+  z-index: 1;
   outline: 1.6px solid var(--secondary-color);
 }
 
@@ -116,6 +116,7 @@ font-size: 14px;
 
 .card-item:has(input:focus) {
   outline: 1.6px solid var(--secondary-color);
+  z-index: 1;
 }
 
 .card-item:has(input:checked) .icon-check {
