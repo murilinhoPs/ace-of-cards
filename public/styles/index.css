@@ -18,6 +18,7 @@
   --main-accent-color: #e63946;
   --soft-pink: #d0687a;
   --golden-yellow: #9e8f38;
+  --green-check: #51e975;
 
   background-color: var(--main-bg-color);
   color: var(--text-color);
@@ -34,6 +35,16 @@ button:hover {
   cursor: pointer;
   opacity: 90%;
 }
+
+button:disabled,
+button:disabled:hover, 
+#header-button:disabled:hover{
+  cursor: default;
+  opacity: 100%;
+  transform: translateY(0px);
+  transition: all 0.64s ease;
+}
+
 .hand-card-button {
   background: var(--main-bg-color);
 }
