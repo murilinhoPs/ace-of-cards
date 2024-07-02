@@ -9,6 +9,7 @@
                            :table "Table"}
           :decks          {:draw "Draw"}
           :card-list      {:cards "Cards"}
+          :ace-card       {:name "A"}
           :actions-footer {:use-cards "Are you sure you want to use these cards? This action cannot be undone!"
                            :use-skill "Are you sure you want to use this skill? This action cannot be undone!"
                            :trap-card-description "This ability will place the last card of the deck first in the discard pile.
@@ -30,6 +31,7 @@
                          :table "Mesa"}
         :decks          {:draw "Comprar"}
         :card-list      {:cards "Cartas"}
+        :ace-card       {:name "Às"}
         :actions-footer {:use-cards "Usar essas cartas? Essa ação não pode ser desfeita!"
                          :use-skill "Usar essa habilidade? Essa ação não pode ser desfeita!"
                          :trap-card-description "Essa habilidade vai colocar a última carta do deck em primeiro lugar na pilha de descarte.
@@ -51,6 +53,7 @@
                          :table "Tavolo"}
         :decks          {:draw "Comprare"}
         :card-list      {:cards "Carte"}
+        :ace-card       {:name "A"}
         :actions-footer {:use-cards "Usare queste carte? Questa azione non può essere annullata!"
                          :use-skill "Utilizzare questa abilità? Essa ação não pode ser desfeita!"
                          :trap-card-description "Questa abilità posizionerà l'ultima carta del mazzo in cima alla pila degli scarti.

@@ -1,11 +1,16 @@
 (ns app.components.cards.card-component
   (:require [app.adapters.card-suit :refer [card-suits->icon]]
+            [app.i18n]
             [app.utils :refer [asset]]
             [helix.core :refer [<> defnc]]
             [helix.dom :as d]))
 
+(defn ^:private translate-card-rank [rank]
+  (if (= "Às" rank) (app.i18n/app-tr [:ace-card/name]) rank))
+
 (defnc card-component
   [{:keys [rank suit on-click]}]
+  (print rank)
   (d/button  {:on-click (if (nil? on-click) #() #(on-click))
               :class "hand-card-button"
               :style {:border "4px solid var(--lighter-color)"
@@ -19,7 +24,7 @@
                       :width "8.6rem"
                       :height "12rem"
                       :position "relative"}}
-             (d/p {:style {:font-size "2.4rem"}} rank)
+             (d/p {:style {:font-size "2.4rem"}} (translate-card-rank rank))
              (if (= :joker suit)
                (<> (d/img {:src (asset "joker.png")
                            :width "28px"
