@@ -10,17 +10,12 @@
         discard-pile-count (-> game-state :discard-pile count)]
     (d/aside {:style {:display "flex" 
                       :margin-top "6.4rem"
-                      :justify-content "end"
                       :align-items "end"
-                      :flex-direction "column"
+                      :flex-direction "column" 
                       :gap "8rem"}}
-             (d/div {:style {:display "flex"
-                             :max-height "170px"
-                             :gap "2rem"}}
-                    ($ card-list-component {:coll (:deck game-state)})
-                    ($ deck-component {:count deck-count :game-state game-state :set-game-state set-game-state}))
-             (d/div {:style {:display "flex"
-                             :gap "2rem"
+             ($ deck-component {:count deck-count :game-state game-state :set-game-state set-game-state})
+             (d/div {:style {:gap "2rem"
+                             :display "flex"
                              :justify-content "end"}}
                     ($ card-list-component {:coll (-> game-state :discard-pile reverse)})
                     ($ discard-pile-component  {:count discard-pile-count})))))
