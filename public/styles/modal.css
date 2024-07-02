@@ -20,10 +20,9 @@
 }
 
 .modal {
-  padding: 0 8px;
-  width: 360px;
+  padding:0 1rem;
+  width: 320px;
   max-width: 32rem;
-  min-height: 160px;
   background: var(--darker-color);
   color: white;
   border-radius: 16px;
@@ -52,12 +51,12 @@
 }
 
 .modal-content p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
 .modal-content small {
-  font-size: 1rem;
+  font-size: .8rem;
   font-weight: 400;
 }
 
@@ -70,7 +69,7 @@
 .actions-container {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: end;
 }
 
 .close-btn {
