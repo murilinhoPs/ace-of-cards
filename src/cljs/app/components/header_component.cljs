@@ -7,8 +7,8 @@
 (defnc shuffle-button [{:keys [on-click]}]
   (let [[shuffled? set-shuffled?] (hooks/use-state false)
         shuffle-deck' (app.i18n/app-tr [:header/shuffle-deck])
-        shuffle-fn (fn [] (on-click) 
-                     (set-shuffled? true) 
+        shuffle-fn (fn [] (on-click)
+                     (set-shuffled? true)
                      (js/setTimeout #(set-shuffled? false) 3000))]
     (d/button
      {:id "header-button"
@@ -18,10 +18,10 @@
               :color "var(--text-color)"
               :border "none"
               :border-radius "12px"
-              :padding "8px"
-              :padding-top (when shuffled? "3px")
+              :padding (if shuffled? "9px 8px 6px" "8px")
               :font-weight "bold"
               :font-size ".9rem"
+              :min-height "40px"
               :min-width "120px"}}
      (if shuffled?
        (d/i {:class "icon-circle-check-big"
@@ -54,6 +54,6 @@
                                :padding "8px"
                                :font-weight "bold"
                                :font-size ".9rem"
-                               :max-height "36px"
+                               :min-height "40px"
                                :min-width "120px"}}
                       (if started? reset-game' new-game'))))))
