@@ -21,8 +21,7 @@ Features added until now:
 - Shuffle Deck when needed
   - It re-shuffles the discard pile when deck is with 0 cards
 - Return to your hand a card you played if you've selected the wrong card
-- See the cards in the discard-pile and the deck
-  - *Only see the card in the deck if you need (**it's not cool**)*
+- See the cards in the discard-pile
 - Footer with player actions (ace of cards skills)
   - You can resolve the cards (Magic cards skill)
   - You can use Trap card skill

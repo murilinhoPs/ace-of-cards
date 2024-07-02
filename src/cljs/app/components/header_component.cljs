@@ -18,6 +18,7 @@
               :color "var(--text-color)"
               :border "none"
               :border-radius "12px"
+              :padding "8px"
               :padding-top (when shuffled? "3px")
               :font-weight "bold"
               :font-size ".9rem"
