@@ -8,7 +8,7 @@ I decided to create this app because I'm going to play this class in an online *
 
 ## Preview - Video
 
-[![](https://img.youtube.com/vi/oKZSHhYwdLE/0.jpg)](https://youtu.be/oKZSHhYwdLE)
+[![](https://img.youtube.com/vi/SSlsvSIhyXI/0.jpg)](https://youtu.be/SSlsvSIhyXI)
 
 ## Features
 
