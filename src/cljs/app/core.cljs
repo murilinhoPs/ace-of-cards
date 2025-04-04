@@ -18,7 +18,7 @@
         shuffle-game #(logic.game/shuffle-deck game-state set-game-state)]
     (d/div {:style {:display "flex"
                     :flex-direction "column"
-                    :height "100vh"}}
+                    :height "100dvh"}}
            ($ header-component {:started? started?
                                 :start-game start-game
                                 :restart-game restart-game

@@ -1,5 +1,6 @@
 (ns app.components.header-component
-  (:require [app.i18n]
+  (:require ["lucide-react" :refer [CircleCheckBig]]
+            [app.i18n]
             [helix.core :refer [$ defnc]]
             [helix.dom :as d]
             [helix.hooks :as hooks]))
@@ -22,11 +23,10 @@
               :font-weight "bold"
               :font-size ".9rem"
               :min-height "40px"
+              :max-height "40px"
               :min-width "120px"}}
      (if shuffled?
-       (d/i {:class "icon-circle-check-big"
-             :style {:font-size "1.2rem"
-                     :color "var(--green-check)"}})
+       ($ CircleCheckBig {:size "1.2rem" :color "var(--green-check)"})
        shuffle-deck'))))
 
 (defnc header-component [{:keys [started? start-game restart-game shuffle-deck]}]
@@ -39,10 +39,10 @@
                        :padding ".4rem 12px 0"}}
               (d/h1 "Ace of Cards - Fabula Ultima")
               (d/div {:style {:display "flex"
-                              :flex-direction "row"
                               :flex-wrap "wrap"
                               :gap "16px"
-                              :align-self "center"}}
+                              :align-self "center"
+                              :justify-content "end"}}
                      (when started? ($ shuffle-button {:on-click shuffle-deck}))
                      (d/button
                       {:id "header-button"
@@ -55,5 +55,6 @@
                                :font-weight "bold"
                                :font-size ".9rem"
                                :min-height "40px"
-                               :min-width "120px"}}
+                               :max-height "40px"
+                               :min-width "121px"}}
                       (if started? reset-game' new-game'))))))

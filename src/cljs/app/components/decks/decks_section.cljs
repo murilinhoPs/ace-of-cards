@@ -8,14 +8,14 @@
 (defnc decks-section [{:keys [game-state set-game-state]}]
   (let [deck-count (-> game-state :deck count)
         discard-pile-count (-> game-state :discard-pile count)]
-    (d/aside {:style {:display "flex" 
-                      :margin-top "6.4rem"
+    (d/aside {:class "aside-decks"
+              :style {:display "flex" 
+                      :margin-left "1.2rem"
                       :align-items "end"
-                      :flex-direction "column" 
-                      :gap "8rem"}}
+                      :align-self "center"
+                      :flex-direction "column"
+                      :gap "4rem"}}
              ($ deck-component {:count deck-count :game-state game-state :set-game-state set-game-state})
-             (d/div {:style {:gap "2rem"
-                             :display "flex"
-                             :justify-content "end"}}
+             (d/div {:class "discard-section"}
                     ($ card-list-component {:coll (-> game-state :discard-pile reverse)})
                     ($ discard-pile-component  {:count discard-pile-count})))))

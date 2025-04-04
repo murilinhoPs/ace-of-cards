@@ -22,16 +22,17 @@
     (d/footer {:id "footer-actions"}
               (d/h4 {:class "footer-title"}
                     "Player Actions:")
-              (d/button {:class "resolve-cards-btn"
-                         :disabled disable-resolve
-                         :on-click (fn [] (set-modal-state
-                                           {:show? true?
-                                            :confirm-click (partial logic.game/resolve-cards-action game-state (:table game-state) set-game-state)
-                                            :content #(d/p (app.i18n/app-tr [:actions-footer/use-cards]))}))}
-                        "Resolve Cards")
-              (d/button {:class "trap-card-btn"
-                         :on-click (fn [] (set-modal-state
-                                           {:show? true?
-                                            :confirm-click (partial logic.game/use-trap-card-action game-state set-game-state)
-                                            :content #($ trap-card-content)}))}
-                        "Trap Card"))))
+              (d/div {:class "button-row"}
+                     (d/button {:class "resolve-cards-btn"
+                                :disabled disable-resolve
+                                :on-click (fn [] (set-modal-state
+                                                  {:show? true?
+                                                   :confirm-click (partial logic.game/resolve-cards-action game-state (:table game-state) set-game-state)
+                                                   :content #(d/p (app.i18n/app-tr [:actions-footer/use-cards]))}))}
+                               "Resolve Cards")
+                     (d/button {:class "trap-card-btn"
+                                :on-click (fn [] (set-modal-state
+                                                  {:show? true?
+                                                   :confirm-click (partial logic.game/use-trap-card-action game-state set-game-state)
+                                                   :content #($ trap-card-content)}))}
+                               "Trap Card")))))

@@ -9,11 +9,11 @@
             [helix.dom :as d]))
 
 (defnc game-component [{:keys [game-state set-game-state set-modal-state]}]
-  (d/div {:style {:display "flex" 
-                  :padding "0 1.6rem"
+  (d/div {:style {:display "flex"
+                  :padding "0 1.2rem"
                   :justify-content "space-between"
-                  :align-items "center"
-                  :margin-bottom "3.2rem"}}
+                  :align-items "center" ;;cima
+                  :margin-bottom "2rem"}}
          (d/main  {:style {:align-self "start"}}
                   (hand-cards (:hand game-state)
                               {:card-click (fn [card] (set-modal-state

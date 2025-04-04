@@ -3,8 +3,9 @@
 }
 
 #category-select {
+  margin: 0;
   width: 8.4rem;
-  position: relative;
+  /* position: relative; */
   color: #d3dcd0;
 }
 
@@ -36,8 +37,8 @@
 }
 
 #chevrons i {
-  width: 0.8rem;
-  height: 0.8rem;
+  width: 0.6rem;
+  height: 0.6rem;
 }
 
 #chevrons [class='icon-chevron-up'] {
@@ -99,7 +100,6 @@ font-size: 14px;
 .card-item .icon-check {
   margin-left: auto;
   color: var(--secondary-color);
-  font-size: 12px;
   display: none;
 }
 
@@ -115,7 +115,9 @@ font-size: 14px;
 }
 
 .card-item:has(input:focus) {
-  outline: 1.6px solid var(--secondary-color);
+  border-bottom: 1.2px solid var(--secondary-color);
+  border-top: 1.2px solid var(--secondary-color);
+  
   z-index: 1;
 }
 

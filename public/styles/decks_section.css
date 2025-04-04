@@ -1,0 +1,51 @@
+.discard-section {
+  gap: 2rem;
+  flex-direction: row;
+  display: flex;
+  justify-content: end;
+}
+
+#deck #card-deck {
+  width: 5.4rem;
+  height: 7rem;
+}
+
+#deck .deck-icon {
+  width: 30px;
+  height: 30px;
+}
+
+#deck.buy button {
+  transform: translateX(-16px);
+}
+
+@media only screen and (max-width: 700px) {
+  .discard-section {
+    gap: 2.2rem;
+    flex-direction: column-reverse;
+    display: flex;
+    justify-content: end;
+  }
+
+  .discard-section:has(#card-list) {
+    align-items: end;
+    margin-right: 8px;
+  }
+
+  .discard-section #card-list {
+    transform: translateX(12px);
+  }
+
+  #deck #card-deck {
+    width: 4rem;
+    height: 5.2rem;
+  }
+  #deck .deck-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  #deck.buy #start-button {
+    transform: none;
+  }
+}

@@ -1,33 +1,42 @@
 #footer-actions {
   z-index: 1;
-  background-color: var(--darker-color);
   width: 100%;
+  background-color: var(--darker-color);
   margin-top: auto; /* take available whitespace */
   display: flex;
   justify-content: center;
-  gap: 12rem;
   align-items: center;
   padding: 12px 12px;
 }
 
-#footer-actions button {
-  min-width: 180px;
+.footer-title {
+  margin-inline: auto;
 }
 
-.footer-title {
-  position: absolute;
-  left: 2rem;
+.button-row {
+  margin-inline: auto;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: end;
+}
+
+.button-row > * {
+  margin-left: .4rem;
+  flex: 0 1 auto;
+  min-width: 180px; 
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: clamp(0.8rem, calc(.9vw + 1rem), 1.1rem);
+  border: none;
+  transition: all 0.25s ease;
 }
 
 .resolve-cards-btn {
-  font-weight: bold;
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-size: .9rem;
-  border: none;
   color: var(--text-color);
   background: var(--secondary-color);
-  transition: all 0.25s ease;
 }
 
 .resolve-cards-btn:hover {
@@ -49,14 +58,8 @@
 }
 
 .trap-card-btn {
-  font-weight: bold;
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-size: .9rem;
-  border: none;
   color: var(--text-color);
   background: var(--soft-pink);
-  transition: all 0.25s ease;
 }
 
 .trap-card-btn:hover {

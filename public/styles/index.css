@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
-@import url('https://unpkg.com/lucide-static@latest/font/lucide.css');
 
 * {
   margin: 0;
@@ -37,8 +36,8 @@ button:hover {
 }
 
 button:disabled,
-button:disabled:hover, 
-#header-button:disabled:hover{
+button:disabled:hover,
+#header-button:disabled:hover {
   cursor: default;
   opacity: 100%;
   transform: translateY(0px);
@@ -56,4 +55,11 @@ button:disabled:hover,
 #header-button:hover {
   transform: translateY(-5px);
   transition: all 0.32s ease;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .aside-decks {
+    padding-top: 6.4rem;
+  }
 }
