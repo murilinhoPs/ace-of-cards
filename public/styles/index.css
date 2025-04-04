@@ -39,7 +39,7 @@ button:disabled,
 button:disabled:hover,
 #header-button:disabled:hover {
   cursor: default;
-  opacity: 100%;
+  opacity: 70%;
   transform: translateY(0px);
   transition: all 0.64s ease;
 }

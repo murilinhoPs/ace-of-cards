@@ -5,7 +5,7 @@
             [helix.core :refer [$ defnc]]
             [helix.dom :as d]))
 
-(defnc deck-component [{:keys [count game-state set-game-state]}]
+(defnc deck-component [{:keys [hand-count count game-state set-game-state]}]
   (d/article {:id "deck"
               :class "buy"
               :style {:position "relative"
@@ -28,6 +28,7 @@
                     ($ Layers {:class "deck-icon"}))
              (d/button  {:id "start-button"
                          :on-click #(draw-card game-state set-game-state)
+                         :disabled (>= hand-count 5)
                          :style {:margin "2rem 0 0" 
                                  :justify-content "center"
                                  :background-color "var(--secondary-color)"

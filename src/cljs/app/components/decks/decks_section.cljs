@@ -7,9 +7,10 @@
 
 (defn decks-section [& {:keys [game-state set-game-state]}]
   (let [deck-count (-> game-state :deck count)
-        discard-pile-count (-> game-state :discard-pile count)]
+        discard-pile-count (-> game-state :discard-pile count)
+        hand-count (-> game-state :hand count)]
     (d/aside {:class "aside-decks"}
-             ($ deck-component {:count deck-count :game-state game-state :set-game-state set-game-state})
+             ($ deck-component {:hand-count hand-count :count deck-count :game-state game-state :set-game-state set-game-state})
              (d/div {:class "discard-section"}
                     ($ card-list-component {:coll (-> game-state :discard-pile reverse)})
                     ($ discard-pile-component  {:count discard-pile-count})))))

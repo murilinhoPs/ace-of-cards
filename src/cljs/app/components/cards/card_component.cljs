@@ -33,7 +33,7 @@
                       :display "flex"
                       :flex-direction "column"
                       :width "clamp(5.6rem, 14vw + 1rem, 8.6rem)"
-                      :height "clamp(7.6rem, 18vw + 3.2rem, 12rem)"
+                      :height "clamp(7.6rem, 16vw + 3rem, 12rem)"
                       :position "relative"}}
              (d/p {:style {:font-size "clamp(1.2rem, 2.4vw + 1rem, 2.4rem)" 
                            :font-weight "600"}} 
