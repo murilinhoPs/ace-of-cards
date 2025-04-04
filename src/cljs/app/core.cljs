@@ -16,9 +16,7 @@
         start-game #(logic.game/start-game set-started? set-game-state)
         restart-game #(logic.game/restart-game set-modal-state start-game)
         shuffle-game #(logic.game/shuffle-deck game-state set-game-state)]
-    (d/div {:style {:display "flex"
-                    :flex-direction "column"
-                    :height "100dvh"}}
+    (d/div {:id "content"}
            ($ header-component {:started? started?
                                 :start-game start-game
                                 :restart-game restart-game

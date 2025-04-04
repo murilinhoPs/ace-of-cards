@@ -16,7 +16,7 @@
                      :style {:border "4px solid var(--main-color)"
                              :background-color "var(--main-bg-color)"
                              :border-radius "16px"
-                             :padding "8px"
+                             :padding "8px "
                              :justify-content "center"
                              :align-items "center"
                              :display "flex"

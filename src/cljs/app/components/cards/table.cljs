@@ -6,19 +6,20 @@
 
 (defn table-cards [table & {:keys [card-click]}]
   (let [table' (-> (app.i18n/app-tr [:cards/table]) (str " - Magic Cards"))]
-    (d/article {:class "table"}
+    (d/article {:class "table"
+                :style {:min-height "320px"}}
                (d/h3 table')
                (when (< 0 (count table))
                  (d/div {:style {:display "flex"
                                  :flex-direction "row"
                                  :flex-wrap "wrap"
                                  :gap "16px"
-                                 :align-self "center"}}
+                                 :align-self "center"
+                                 :padding "8px 0px"
+                                 :margin-top "12px"}}
                         (for [card table]
-                          (d/div {:key (:id card)
-                                  :style {:padding "8px 0px"
-                                          :display "flex"
-                                          :column-gap "16px"}}
+                          (d/div {:id "table-card"
+                                  :key (:id card)}
                                  ($ card-component {:rank (:rank card)
                                                     :suit (:suit card)
                                                     :on-click #(card-click card)}))))))))

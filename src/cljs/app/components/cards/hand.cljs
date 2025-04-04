@@ -5,18 +5,16 @@
             [helix.dom :as d]))
 
 (defn hand-cards [hand & {:keys [card-click]}]
-  (d/article {:class "hand" :style {:min-height "280px"}}
+  (d/article {:class "hand"}
              (d/h3 (app.i18n/app-tr [:cards/hand]))
              (when (< 0 (count hand))
                (d/div {:style {:display "flex"
                                :flex-direction "row"
                                :flex-wrap "wrap"
-                               :gap "16px"}}
+                               :gap "16px"
+                               :padding "8px 0px 0px"}}
                       (for [card hand]
-                        (d/div {:key (:id card)
-                                :style {:padding "8px 0px"
-                                        :display "flex"
-                                        :column-gap "16px"}}
+                        (d/div {:key (:id card)}
                                ($ card-component {:rank (:rank card)
                                                   :suit (:suit card)
                                                   :on-click #(card-click card)})))))))

@@ -4,7 +4,8 @@
 
 #category-select {
   margin: 0;
-  width: 8.4rem;
+  min-width: 6rem;
+  max-width: 8.4rem;
   /* position: relative; */
   color: #d3dcd0;
 }

@@ -35,9 +35,10 @@
     (d/header {:class "header"
                :style {:display "flex"
                        :justify-content "space-between"
-                       :margin "12px 12px 48px"
+                       :margin "12px 12px 32px"
                        :padding ".4rem 12px 0"}}
-              (d/h1 "Ace of Cards - Fabula Ultima")
+              (d/h1 {:style {:font-size "clamp(1.4rem, 3.6vw + .8rem  ,2.4rem)"}}
+                    "Ace of Cards - Fabula Ultima")
               (d/div {:style {:display "flex"
                               :flex-wrap "wrap"
                               :gap "16px"
