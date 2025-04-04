@@ -12,10 +12,7 @@
                       :display "flex"
                       :flex-direction "column"
                       :align-items "end"}}
-             (d/p {:style {:position "absolute"
-                           :top "-20px"
-                           :left "-12px"
-                           :font-size "1.8rem"}}
+             (d/p {:id "deck-count"}
                   (str count))
              (d/div {:id "card-deck"
                      :style {:border "4px solid var(--secondary-color)"

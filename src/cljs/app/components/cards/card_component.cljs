@@ -24,7 +24,7 @@
   [{:keys [rank suit on-click]}]
   (d/button  {:on-click (if (nil? on-click) #() #(on-click))
               :class "hand-card-button"
-              :style {:border "4px solid var(--lighter-color)"
+              :style {:border "3.6px solid var(--lighter-color)"
                       :color "var(--text-color)"
                       :border-radius "16px"
                       :padding "8px"
@@ -32,8 +32,8 @@
                       :align-items "center"
                       :display "flex"
                       :flex-direction "column"
-                      :width "clamp(6.4rem, 14vw + 1rem, 8.6rem)"
-                      :height "clamp(8.1rem, 16vw + 3.2rem, 12rem)"
+                      :width "clamp(5.6rem, 14vw + 1rem, 8.6rem)"
+                      :height "clamp(7.6rem, 18vw + 3.2rem, 12rem)"
                       :position "relative"}}
              (d/p {:style {:font-size "clamp(1.2rem, 2.4vw + 1rem, 2.4rem)" 
                            :font-weight "600"}} 

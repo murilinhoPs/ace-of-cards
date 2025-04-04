@@ -7,10 +7,7 @@
   (d/article {:id "deck"
               :class "discard"
               :style {:position "relative"}}
-             (d/p {:style {:position "absolute"
-                           :top "-20px"
-                           :left "-12px"
-                           :font-size "1.8rem"}}
+             (d/p {:id "deck-count"}
                   count)
              (d/div {:id "card-deck"
                      :style {:border "4px solid var(--main-color)"
