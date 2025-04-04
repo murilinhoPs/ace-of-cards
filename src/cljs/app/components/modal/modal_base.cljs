@@ -1,5 +1,6 @@
 (ns app.components.modal.modal-base
-  (:require [app.i18n]
+  (:require ["lucide-react" :refer [X]]
+            [app.i18n]
             [helix.core :refer [$ <> defnc]]
             [helix.dom :as d]
             [helix.hooks :as hooks]))
@@ -19,7 +20,7 @@
                           (d/h3 {:class "heading"}
                                 heading'))
                    (d/button {:class "close-btn"  :on-click close-modal}
-                             (d/i {:class "icon-x"}))
+                             ($ X {:name "icon-x"}))
                    (d/div {:class "modal-content"}
                           ($ content {:set-continue? set-continue?
                                       :game game}))

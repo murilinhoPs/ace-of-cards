@@ -5,7 +5,7 @@
 (s/defn card-suits->icon :- s/Str
   [suit :- Suit]
   (cond
-    (= :hearts suit) "icon-heart"
-    (= :spades suit) "icon-spade"
-    (= :clubs suit) "icon-club"
-    (= :diamonds suit) "icon-diamond"))
+    (= :hearts suit) "heart"
+    (= :spades suit) "spade"
+    (= :clubs suit) "club"
+    (= :diamonds suit) "diamond"))

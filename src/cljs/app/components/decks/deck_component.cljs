@@ -1,34 +1,35 @@
-(ns app.components.decks.deck-component 
-  (:require [app.i18n]
+(ns app.components.decks.deck-component
+  (:require ["lucide-react" :refer [Layers]]
+            [app.i18n]
             [app.logic.game :refer [draw-card]]
-            [helix.core :refer [defnc]]
+            [helix.core :refer [$ defnc]]
             [helix.dom :as d]))
 
-(defnc deck-component [{:keys [count game-state set-game-state]}]
-  (d/article {:class "deck"
-              :style {:position "relative"}}
-             (d/p {:style {:position "absolute"
-                           :top "-20px"
-                           :left "-12px"
-                           :font-size "1.8rem"}}
+(defnc deck-component [{:keys [hand-count count game-state set-game-state]}]
+  (d/article {:id "deck"
+              :class "buy"
+              :style {:position "relative"
+                      :display "flex"
+                      :flex-direction "column"
+                      :align-items "end"}}
+             (d/p {:id "deck-count"}
                   (str count))
-             (d/div {:style {:border "4px solid var(--secondary-color)"
+             (d/div {:id "card-deck"
+                     :style {:border "4px solid var(--secondary-color)"
                              :background-color "var(--main-bg-color)"
                              :border-radius "16px"
                              :justify-content "center"
                              :align-items "center"
                              :display "flex"
-                             :width "5.4rem"
-                             :height "7rem"
-                             :box-shadow "-8px 10px 0 -2.5px var(--main-bg-color), 
-                                 -12px 12px 0 0 var(--secondary-color), 
-                                 -18px 20px 0 0 var(--main-bg-color), 
+                             :box-shadow "-8px 10px 0 -2.5px var(--main-bg-color),
+                                 -12px 12px 0 0 var(--secondary-color),
+                                 -18px 20px 0 0 var(--main-bg-color),
                                  -22px 24px 0 0 var(--secondary-color)"}}
-                    (d/i {:class "icon-layers" :style {:font-size "32px"}}))
+                    ($ Layers {:class "deck-icon"}))
              (d/button  {:id "start-button"
                          :on-click #(draw-card game-state set-game-state)
+                         :disabled (>= hand-count 5)
                          :style {:margin "2rem 0 0" 
-                                 :transform "translateX(-15px)"
                                  :justify-content "center"
                                  :background-color "var(--secondary-color)"
                                  :color "var(--text-color)"

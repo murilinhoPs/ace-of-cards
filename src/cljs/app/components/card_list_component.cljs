@@ -1,5 +1,7 @@
 (ns app.components.card-list-component
-  (:require [app.adapters.card-suit :refer [card-suits->icon]]
+  (:require ["lucide-react" :refer [ChevronUp ChevronDown]]
+            ["lucide-react/dynamic" :refer [DynamicIcon]]
+            [app.adapters.card-suit :refer [card-suits->icon]]
             [app.i18n]
             [app.utils :refer [asset]]
             [helix.core :refer [$ defnc]]
@@ -14,9 +16,7 @@
         (d/img {:src (asset "joker.png")
                 :style {:filter "invert(100%)"
                         :width "16px"}})
-        (d/span {:class "label"} "Joker")
-
-        (d/i {:class "icon-check"})))
+        (d/span {:class "label"} "Joker")))
 
 (defnc default-card [{:keys [rank suit]}]
   (d/li {:class "card-item"}
@@ -24,14 +24,13 @@
                   :name "category"
                   :value (str rank "-" suit)
                   :data-label (str rank "-" suit)})
-        (d/i {:class (card-suits->icon suit)})
-        (d/span {:class "label"} rank)
-
-        (d/i {:class "icon-check"})))
+        ($ DynamicIcon {:name (card-suits->icon suit) :size "16px"})
+        (d/span {:class "label"} rank)))
 
 (defnc card-list-component [{:keys [coll]}]
   (when (> (count coll) 0)
-    (d/div {:class "select"}
+    (d/div {:id "card-list-button"
+            :class "select"}
            (d/div {:id "category-select"}
                   (d/input {:type "checkbox"
                             :id "options-button"})
@@ -39,8 +38,8 @@
                          (d/p {:id "selected-value"}
                               (app.i18n/app-tr [:card-list/cards]))
                          (d/div {:id "chevrons"}
-                                (d/i {:class "icon-chevron-down"})
-                                (d/i {:class "icon-chevron-up"}))))
+                                ($ ChevronUp {:class "icon-chevron-down"})
+                                ($ ChevronDown {:class "icon-chevron-up"}))))
            (d/ul {:id "cards-list"}
                  (for [card coll]
                    (if (= :joker (:suit card))

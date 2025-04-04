@@ -3,8 +3,9 @@
 }
 
 #category-select {
-  width: 8.4rem;
-  position: relative;
+  margin: 0;
+  min-width: 6rem;
+  max-width: 8.4rem;
   color: #d3dcd0;
 }
 
@@ -35,13 +36,15 @@
   align-items: center;
 }
 
-#chevrons i {
-  width: 0.8rem;
-  height: 0.8rem;
+#chevrons [class='icon-chevron-down']  {
+  width: 1.8rem;
+  height: 1.8rem;
 }
 
 #chevrons [class='icon-chevron-up'] {
   display: none;
+  width: 1.8rem;
+  height: 1.8rem;
 }
 
 #options-button:focus + #select-button,
@@ -77,8 +80,8 @@
 .card-item {
   display: flex;
   align-items: center;
-  gap: 1.8rem;
-  padding: 8px;
+  justify-content: space-between;
+  padding: 8px .8rem;
   border-radius: 8px;
   border-bottom: 1px solid #252529;
   position: relative;
@@ -99,7 +102,6 @@ font-size: 14px;
 .card-item .icon-check {
   margin-left: auto;
   color: var(--secondary-color);
-  font-size: 12px;
   display: none;
 }
 
@@ -115,7 +117,9 @@ font-size: 14px;
 }
 
 .card-item:has(input:focus) {
-  outline: 1.6px solid var(--secondary-color);
+  border-bottom: 1.6px solid var(--secondary-color);
+  border-top: 1.6px solid var(--secondary-color);
+  
   z-index: 1;
 }
 
@@ -141,4 +145,24 @@ font-size: 14px;
 
 .select:has(.card-item:checked) #selected-value {
   color: var(--text-color);
+}
+
+@media only screen and (max-width: 700px) {
+  .select {
+    transform: translateX(-4px);
+  }
+
+  #chevrons [class='icon-chevron-down'],  #chevrons [class='icon-chevron-up']  {
+    width: 1.4em;
+    height: 1.4rem;
+  }
+
+  #category-select {
+    min-width: 5rem;
+  }
+
+  #cards-list {
+    max-height: 132px;
+    max-width: 6.4rem;
+  }
 }
