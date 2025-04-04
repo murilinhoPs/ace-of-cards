@@ -1,5 +1,5 @@
 (ns app.components.card-list-component
-  (:require ["lucide-react" :refer [Check ChevronUp ChevronDown]]
+  (:require ["lucide-react" :refer [ChevronUp ChevronDown]]
             ["lucide-react/dynamic" :refer [DynamicIcon]]
             [app.adapters.card-suit :refer [card-suits->icon]]
             [app.i18n]
@@ -16,9 +16,7 @@
         (d/img {:src (asset "joker.png")
                 :style {:filter "invert(100%)"
                         :width "16px"}})
-        (d/span {:class "label"} "Joker")
-
-        ($ Check {:class "icon-check" :size "16px"})))
+        (d/span {:class "label"} "Joker")))
 
 (defnc default-card [{:keys [rank suit]}]
   (d/li {:class "card-item"}
@@ -27,13 +25,11 @@
                   :value (str rank "-" suit)
                   :data-label (str rank "-" suit)})
         ($ DynamicIcon {:name (card-suits->icon suit) :size "16px"})
-        (d/span {:class "label"} rank)
-
-        ($ Check {:class "icon-check" :size "16px"})))
+        (d/span {:class "label"} rank)))
 
 (defnc card-list-component [{:keys [coll]}]
   (when (> (count coll) 0)
-    (d/div {:id "card-list"
+    (d/div {:id "card-list-button"
             :class "select"}
            (d/div {:id "category-select"}
                   (d/input {:type "checkbox"

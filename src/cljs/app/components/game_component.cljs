@@ -13,12 +13,10 @@
   (d/div {:style {:display "flex"
                   :justify-content "space-between"
                   :align-items "start"
-                  :height "100%"
                   :padding "0 1.2rem"}}
          (d/main  {:id "main-content"
                    :style {:display "flex"
-                           :flex-direction "column"
-                         }}
+                           :flex-direction "column"}}
                   (hand-cards hand
                               {:card-click (fn [card] (set-modal-state
                                                        {:show? true
