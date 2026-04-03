@@ -42,6 +42,9 @@
         suppress-next-click? (hooks/use-ref false)
         on-pointer-down (fn [card source e]
                           (.preventDefault e)
+                          (let [body-style (.-style (.-body js/document))]
+                            (set! (.-overflow body-style) "hidden")
+                            (set! (.-touchAction body-style) "none"))
                           (let [cx (.-clientX e)
                                 cy (.-clientY e)]
                             (set-drag-state {:dragging? true
@@ -58,6 +61,9 @@
               source  (:source drag-state)
               start-x (:start-x drag-state)
               start-y (:start-y drag-state)
+              body-style (.-style (.-body js/document))
+              prev-body-overflow (.-overflow body-style)
+              prev-body-touch-action (.-touchAction body-style)
               reset!  #(set-drag-state {:dragging? false
                                         :card      nil
                                         :source    nil
@@ -95,10 +101,14 @@
                           (reset!)))
               cancel-fn (fn []
                           (reset!))]
+          (set! (.-overflow body-style) "hidden")
+          (set! (.-touchAction body-style) "none")
           (.addEventListener js/document "pointermove" move-fn)
           (.addEventListener js/document "pointerup"   up-fn)
           (.addEventListener js/document "pointercancel" cancel-fn)
           (fn []
+            (set! (.-overflow body-style) prev-body-overflow)
+            (set! (.-touchAction body-style) prev-body-touch-action)
             (.removeEventListener js/document "pointermove" move-fn)
             (.removeEventListener js/document "pointerup"   up-fn)
             (.removeEventListener js/document "pointercancel" cancel-fn)))))
