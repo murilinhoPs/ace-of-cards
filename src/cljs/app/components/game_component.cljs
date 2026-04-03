@@ -120,6 +120,7 @@
                                                                     :content card.option/card-options-component}))
                                 :on-card-pointer-down (fn [card e] (on-pointer-down card :hand e))
                                 :hand-ref             hand-ref
+                                :drop-active?         (and (:dragging? drag-state) (= (:source drag-state) :table))
                                 :dragging-card-id     (when (= (:source drag-state) :hand)
                                                         (:id (:card drag-state)))})
                    (table-cards table
