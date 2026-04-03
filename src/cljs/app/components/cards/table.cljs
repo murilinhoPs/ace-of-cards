@@ -25,4 +25,4 @@
                                                     :suit (:suit card)
                                                     :on-click #(card-click card)
                                                     :on-pointer-down (when on-card-pointer-down #(on-card-pointer-down card %))
-                                                    :dragging? (= (:id card) dragging-card-id)})))))))
+                                                    :dragging? (= (:id card) dragging-card-id)}))))))))
