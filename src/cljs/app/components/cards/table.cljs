@@ -4,9 +4,10 @@
             [helix.core :refer [$]]
             [helix.dom :as d]))
 
-(defn table-cards [table & {:keys [card-click]}]
+(defn table-cards [table & {:keys [card-click table-ref drop-active? on-card-pointer-down dragging-card-id]}]
   (let [table' (-> (app.i18n/app-tr [:cards/table]) (str " - Magic Cards"))]
-    (d/article {:class "table"
+    (d/article {:class (str "table" (when drop-active? " drop-zone-active"))
+                :ref table-ref
                 :style {:min-height "320px"}}
                (d/h3 table')
                (when (< 0 (count table))
@@ -22,4 +23,6 @@
                                   :key (:id card)}
                                  ($ card-component {:rank (:rank card)
                                                     :suit (:suit card)
-                                                    :on-click #(card-click card)}))))))))
+                                                    :on-click #(card-click card)
+                                                    :on-pointer-down (when on-card-pointer-down #(on-card-pointer-down card %))
+                                                    :dragging? (= (:id card) dragging-card-id)})))))))

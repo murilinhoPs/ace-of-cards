@@ -21,8 +21,9 @@
                          :size "clamp(1rem, 2vw + 1rem, 2rem)" })))
 
 (defnc card-component
-  [{:keys [rank suit on-click]}]
+  [{:keys [rank suit on-click on-pointer-down dragging?]}]
   (d/button  {:on-click (if (nil? on-click) #() #(on-click))
+              :on-pointer-down (when on-pointer-down on-pointer-down)
               :class "hand-card-button"
               :style {:border "3.6px solid var(--lighter-color)"
                       :color "var(--text-color)"
@@ -34,7 +35,10 @@
                       :flex-direction "column"
                       :width "clamp(5.6rem, 14vw + 1rem, 8.6rem)"
                       :height "clamp(7.6rem, 16vw + 3rem, 12rem)"
-                      :position "relative"}}
+                      :position "relative"
+                      :opacity (if dragging? "0.3" "1")
+                      :transition "opacity 0.1s ease"
+                      :cursor (if on-pointer-down "grab" "pointer")}}
              (d/p {:style {:font-size "clamp(1.2rem, 2.4vw + 1rem, 2.4rem)" 
                            :font-weight "600"}} 
                   (translate-card-rank rank))

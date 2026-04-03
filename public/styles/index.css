@@ -56,3 +56,9 @@ button:disabled:hover,
   transform: translateY(-5px);
   transition: all 0.32s ease;
 }
+
+.drop-zone-active {
+  outline: 2px dashed var(--lighter-color);
+  background: rgba(168, 218, 220, 0.06);
+  transition: outline 0.15s ease, background 0.15s ease;
+}
