@@ -29,12 +29,16 @@
 
 (defnc game-component [{{:keys [hand table] :as game-state} :game-state
                         :keys [set-game-state set-modal-state]}]
-  (let [lock-scroll! (fn []
-                       (set! (.. js/document -body -style -overflow) "hidden")
-                       (set! (.. js/document -body -style -touchAction) "none"))
+  (let [mobile-device? (or (< 0 (.-maxTouchPoints js/navigator))
+                           (boolean (re-find #"Mobi|Android|iPhone|iPad|iPod"
+                                             (or (.-userAgent js/navigator) ""))))
+        lock-scroll! (fn []
+                       (when mobile-device?
+                         (.add (.-classList (.-documentElement js/document)) "drag-scroll-lock")
+                         (.add (.-classList (.-body js/document)) "drag-scroll-lock")))
         unlock-scroll! (fn []
-                         (set! (.. js/document -body -style -overflow) "")
-                         (set! (.. js/document -body -style -touchAction) ""))
+                         (.remove (.-classList (.-documentElement js/document)) "drag-scroll-lock")
+                         (.remove (.-classList (.-body js/document)) "drag-scroll-lock"))
         [drag-state set-drag-state] (hooks/use-state {:dragging? false
                                                       :card      nil
                                                       :source    nil
@@ -65,9 +69,7 @@
               source  (:source drag-state)
               start-x (:start-x drag-state)
               start-y (:start-y drag-state)
-              body-style (.-style (.-body js/document))
-              prev-body-overflow (.-overflow body-style)
-              prev-body-touch-action (.-touchAction body-style)
+              move-options #js {:passive false}
               reset!  #(do
                          (unlock-scroll!)
                          (set-drag-state {:dragging? false
@@ -78,6 +80,8 @@
                                           :x         0
                                           :y         0}))
               move-fn (fn [e]
+                        (when (.-cancelable e)
+                          (.preventDefault e))
                         (set-drag-state #(assoc %
                                                 :x (.-clientX e)
                                                 :y (.-clientY e))))
@@ -107,14 +111,12 @@
                           (reset!)))
               cancel-fn (fn []
                           (reset!))]
-          (.addEventListener js/document "pointermove" move-fn)
+          (.addEventListener js/document "pointermove" move-fn move-options)
           (.addEventListener js/document "pointerup"   up-fn)
           (.addEventListener js/document "pointercancel" cancel-fn)
           (fn []
-            (set! (.-overflow body-style) prev-body-overflow)
-            (set! (.-touchAction body-style) prev-body-touch-action)
             (unlock-scroll!)
-            (.removeEventListener js/document "pointermove" move-fn)
+            (.removeEventListener js/document "pointermove" move-fn move-options)
             (.removeEventListener js/document "pointerup"   up-fn)
             (.removeEventListener js/document "pointercancel" cancel-fn))))) 
     (d/div {:style {:display "flex"
