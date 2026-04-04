@@ -29,7 +29,17 @@
 
 (defnc game-component [{{:keys [hand table] :as game-state} :game-state
                         :keys [set-game-state set-modal-state]}]
-  (let [[drag-state set-drag-state] (hooks/use-state {:dragging? false
+  (let [mobile-device? (or (< 0 (.-maxTouchPoints js/navigator))
+                           (boolean (re-find #"Mobi|Android|iPhone|iPad|iPod"
+                                             (or (.-userAgent js/navigator) ""))))
+        lock-scroll! (fn []
+                       (when mobile-device?
+                         (.add (.-classList (.-documentElement js/document)) "drag-scroll-lock")
+                         (.add (.-classList (.-body js/document)) "drag-scroll-lock")))
+        unlock-scroll! (fn []
+                         (.remove (.-classList (.-documentElement js/document)) "drag-scroll-lock")
+                         (.remove (.-classList (.-body js/document)) "drag-scroll-lock"))
+        [drag-state set-drag-state] (hooks/use-state {:dragging? false
                                                       :card      nil
                                                       :source    nil
                                                       :start-x   0
@@ -39,8 +49,10 @@
         table-ref   (hooks/use-ref nil)
         discard-ref (hooks/use-ref nil)
         hand-ref    (hooks/use-ref nil)
+        suppress-next-click? (hooks/use-ref false)
         on-pointer-down (fn [card source e]
                           (.preventDefault e)
+                          (lock-scroll!)
                           (let [cx (.-clientX e)
                                 cy (.-clientY e)]
                             (set-drag-state {:dragging? true
@@ -57,17 +69,25 @@
               source  (:source drag-state)
               start-x (:start-x drag-state)
               start-y (:start-y drag-state)
-              reset!  #(set-drag-state {:dragging? false
-                                        :card      nil
-                                        :source    nil
-                                        :start-x   0
-                                        :start-y   0
-                                        :x         0
-                                        :y         0})
+              move-options #js {:passive false}
+              reset!  #(do
+                         (unlock-scroll!)
+                         (set-drag-state {:dragging? false
+                                          :card      nil
+                                          :source    nil
+                                          :start-x   0
+                                          :start-y   0
+                                          :x         0
+                                          :y         0}))
               move-fn (fn [e]
+                        (when (.-cancelable e)
+                          (.preventDefault e))
                         (set-drag-state #(assoc %
                                                 :x (.-clientX e)
                                                 :y (.-clientY e))))
+              mark-suppress-click! (fn []
+                                     (set! (.-current suppress-next-click?) true)
+                                     (js/setTimeout #(set! (.-current suppress-next-click?) false) 0))
               up-fn   (fn [e]
                         (let [x    (.-clientX e)
                               y    (.-clientY e)
@@ -75,6 +95,7 @@
                               dy   (- y start-y)
                               dist (js/Math.sqrt (+ (* dx dx) (* dy dy)))
                               zone (detect-over-zone x y table-ref discard-ref hand-ref)]
+                          (mark-suppress-click!)
                           (if (< dist 8)
                             (if (= source :hand)
                               (set-modal-state {:show? true
@@ -87,13 +108,17 @@
                               (and (= zone :table)   (= source :hand))  (play-action game-state card set-game-state)
                               (and (= zone :discard) (= source :hand))  (discard-action game-state card set-game-state)
                               (and (= zone :hand)    (= source :table)) (undo-play-action game-state card set-game-state)))
-                          (reset!)))]
-          (.addEventListener js/document "pointermove" move-fn)
+                          (reset!)))
+              cancel-fn (fn []
+                          (reset!))]
+          (.addEventListener js/document "pointermove" move-fn move-options)
           (.addEventListener js/document "pointerup"   up-fn)
+          (.addEventListener js/document "pointercancel" cancel-fn)
           (fn []
-            (.removeEventListener js/document "pointermove" move-fn)
-            (.removeEventListener js/document "pointerup"   up-fn)))))
-
+            (unlock-scroll!)
+            (.removeEventListener js/document "pointermove" move-fn move-options)
+            (.removeEventListener js/document "pointerup"   up-fn)
+            (.removeEventListener js/document "pointercancel" cancel-fn))))) 
     (d/div {:style {:display "flex"
                     :justify-content "space-between"
                     :align-items "start"
@@ -114,20 +139,24 @@
                     :style {:display "flex"
                             :flex-direction "column"}}
                    (hand-cards hand
-                               {:card-click           (fn [card] (set-modal-state
-                                                                   {:show? true
-                                                                    :confirm-click #(card.option/confirm-action game-state card set-game-state)
-                                                                    :content card.option/card-options-component}))
+                               {:card-click           (fn [card]
+                                                       (when-not (.-current suppress-next-click?)
+                                                         (set-modal-state
+                                                          {:show? true
+                                                           :confirm-click #(card.option/confirm-action game-state card set-game-state)
+                                                           :content card.option/card-options-component})))
                                 :on-card-pointer-down (fn [card e] (on-pointer-down card :hand e))
                                 :hand-ref             hand-ref
                                 :drop-active?         (and (:dragging? drag-state) (= (:source drag-state) :table))
                                 :dragging-card-id     (when (= (:source drag-state) :hand)
                                                         (:id (:card drag-state)))})
                    (table-cards table
-                                {:card-click           (fn [card] (set-modal-state
-                                                                    {:show? true
-                                                                     :confirm-click #(undo-play-action game-state card set-game-state)
-                                                                     :content #(d/p (app.i18n/app-tr [:modal/undo?]))}))
+                                {:card-click           (fn [card]
+                                                         (when-not (.-current suppress-next-click?)
+                                                           (set-modal-state
+                                                            {:show? true
+                                                             :confirm-click #(undo-play-action game-state card set-game-state)
+                                                             :content #(d/p (app.i18n/app-tr [:modal/undo?]))})))
                                  :on-card-pointer-down (fn [card e] (on-pointer-down card :table e))
                                  :table-ref            table-ref
                                  :drop-active?         (and (:dragging? drag-state) (= (:source drag-state) :hand))
