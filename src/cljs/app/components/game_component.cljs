@@ -32,13 +32,61 @@
   (let [mobile-device? (or (< 0 (.-maxTouchPoints js/navigator))
                            (boolean (re-find #"Mobi|Android|iPhone|iPad|iPod"
                                              (or (.-userAgent js/navigator) ""))))
+        scroll-lock-ref (hooks/use-ref {:locked? false
+                                        :scroll-x 0
+                                        :scroll-y 0
+                                        :html-overflow ""
+                                        :body-overflow ""
+                                        :body-position ""
+                                        :body-top ""
+                                        :body-left ""
+                                        :body-right ""
+                                        :body-width ""
+                                        :body-touch-action ""})
         lock-scroll! (fn []
                        (when mobile-device?
-                         (.add (.-classList (.-documentElement js/document)) "drag-scroll-lock")
-                         (.add (.-classList (.-body js/document)) "drag-scroll-lock")))
+                         (let [state (.-current scroll-lock-ref)]
+                           (when-not (:locked? state)
+                             (let [html-style (.-style (.-documentElement js/document))
+                                   body-style (.-style (.-body js/document))
+                                   sx (or (.-scrollX js/window) (.-pageXOffset js/window) 0)
+                                   sy (or (.-scrollY js/window) (.-pageYOffset js/window) 0)]
+                               (set! (.-current scroll-lock-ref)
+                                     {:locked? true
+                                      :scroll-x sx
+                                      :scroll-y sy
+                                      :html-overflow (.-overflow html-style)
+                                      :body-overflow (.-overflow body-style)
+                                      :body-position (.-position body-style)
+                                      :body-top (.-top body-style)
+                                      :body-left (.-left body-style)
+                                      :body-right (.-right body-style)
+                                      :body-width (.-width body-style)
+                                      :body-touch-action (.-touchAction body-style)})
+                               (set! (.-overflow html-style) "hidden")
+                               (set! (.-overflow body-style) "hidden")
+                               (set! (.-position body-style) "fixed")
+                               (set! (.-top body-style) (str (- sy) "px"))
+                               (set! (.-left body-style) (str (- sx) "px"))
+                               (set! (.-right body-style) "0")
+                               (set! (.-width body-style) "100%")
+                               (set! (.-touchAction body-style) "none"))))))
         unlock-scroll! (fn []
-                         (.remove (.-classList (.-documentElement js/document)) "drag-scroll-lock")
-                         (.remove (.-classList (.-body js/document)) "drag-scroll-lock"))
+                         (let [{:keys [locked? scroll-x scroll-y html-overflow body-overflow body-position body-top body-left body-right body-width body-touch-action]}
+                               (.-current scroll-lock-ref)]
+                           (when locked?
+                             (let [html-style (.-style (.-documentElement js/document))
+                                   body-style (.-style (.-body js/document))]
+                               (set! (.-overflow html-style) html-overflow)
+                               (set! (.-overflow body-style) body-overflow)
+                               (set! (.-position body-style) body-position)
+                               (set! (.-top body-style) body-top)
+                               (set! (.-left body-style) body-left)
+                               (set! (.-right body-style) body-right)
+                               (set! (.-width body-style) body-width)
+                               (set! (.-touchAction body-style) body-touch-action)
+                               (.scrollTo js/window scroll-x scroll-y)
+                               (set! (.-current scroll-lock-ref) (assoc (.-current scroll-lock-ref) :locked? false))))))
         [drag-state set-drag-state] (hooks/use-state {:dragging? false
                                                       :card      nil
                                                       :source    nil

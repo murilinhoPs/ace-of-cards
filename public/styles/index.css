@@ -72,11 +72,4 @@ button:disabled:hover,
     user-select: none;
     -webkit-touch-callout: none;
   }
-
-  html.drag-scroll-lock,
-  body.drag-scroll-lock {
-    overflow: hidden;
-    touch-action: none;
-    overscroll-behavior: none;
-  }
 }
