@@ -65,6 +65,9 @@
               source  (:source drag-state)
               start-x (:start-x drag-state)
               start-y (:start-y drag-state)
+              body-style (.-style (.-body js/document))
+              prev-body-overflow (.-overflow body-style)
+              prev-body-touch-action (.-touchAction body-style)
               reset!  #(do
                          (unlock-scroll!)
                          (set-drag-state {:dragging? false
@@ -108,11 +111,12 @@
           (.addEventListener js/document "pointerup"   up-fn)
           (.addEventListener js/document "pointercancel" cancel-fn)
           (fn []
+            (set! (.-overflow body-style) prev-body-overflow)
+            (set! (.-touchAction body-style) prev-body-touch-action)
             (unlock-scroll!)
             (.removeEventListener js/document "pointermove" move-fn)
             (.removeEventListener js/document "pointerup"   up-fn)
-            (.removeEventListener js/document "pointercancel" cancel-fn)))))
-
+            (.removeEventListener js/document "pointercancel" cancel-fn))))) 
     (d/div {:style {:display "flex"
                     :justify-content "space-between"
                     :align-items "start"
