@@ -18,7 +18,8 @@
                                :gap "16px"
                                :padding "8px 0px 0px"}}
                       (for [card hand]
-                        (d/div {:key (:id card)}
+                        (d/div {:key          (:id card)
+                                :data-card-id (:id card)}
                                ($ card-component {:rank (:rank card)
                                                   :suit (:suit card)
                                                   :on-click #(card-click card)

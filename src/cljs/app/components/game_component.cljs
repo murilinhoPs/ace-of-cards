@@ -248,7 +248,8 @@
                       (discard-action game-state card set-game-state)
 
                       (and (= zone :hand) (= source :table))
-                      (undo-play-action game-state card set-game-state)))
+                      (do (undo-play-action game-state card set-game-state)
+                          (flip-animate-card! hand-ref (:id card)))))
                   (reset!)))
 
               cancel-fn
