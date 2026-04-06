@@ -71,6 +71,14 @@ button:disabled:hover,
   transition: background 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Discard zone: inner #card-deck has opaque background-color inline style
+   that covers the parent background. filter:brightness applies to the whole
+   element tree, making the highlight visible regardless. */
+#deck.drop-zone-hover {
+  filter: brightness(1.25);
+  transition: filter 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 /* Card hold pulse — visual feedback during dragOnHold delay */
 @keyframes card-hold-pulse {
   0%   { transform: scale(1);    }
