@@ -41,7 +41,7 @@ button:disabled:hover,
   cursor: default;
   opacity: 70%;
   transform: translateY(0px);
-  transition: all 0.64s ease;
+  transition: all 0.64s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .hand-card-button {
@@ -54,13 +54,34 @@ button:disabled:hover,
 
 #header-button:hover {
   transform: translateY(-5px);
-  transition: all 0.32s ease;
+  transition: all 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Drop zone: static indicator (valid target for current drag) */
 .drop-zone-active {
   outline: 2px dashed var(--lighter-color);
   background: rgba(168, 218, 220, 0.06);
-  transition: outline 0.15s ease, background 0.15s ease;
+  transition: outline 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Drop zone: dynamic indicator (cursor is currently over this zone) */
+.drop-zone-hover {
+  outline: 2px solid var(--lighter-color);
+  background: rgba(168, 218, 220, 0.12);
+  transition: outline 0.1s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Card hold pulse — visual feedback during dragOnHold delay */
+@keyframes card-hold-pulse {
+  0%   { transform: scale(1);    }
+  60%  { transform: scale(1.06); }
+  100% { transform: scale(1.06); }
+}
+
+.card-holding {
+  animation: card-hold-pulse 150ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 @media (hover: none) and (pointer: coarse) {

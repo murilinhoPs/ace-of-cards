@@ -4,8 +4,11 @@
             [helix.core :refer [$]]
             [helix.dom :as d]))
 
-(defn hand-cards [hand & {:keys [card-click on-card-pointer-down hand-ref dragging-card-id drop-active?]}]
-  (d/article {:class (str "hand" (when drop-active? " drop-zone-active"))
+(defn hand-cards [hand & {:keys [card-click on-card-pointer-down hand-ref dragging-card-id
+                                 drop-active? hover-zone holding-card-id]}]
+  (d/article {:class (str "hand"
+                           (when drop-active? " drop-zone-active")
+                           (when (= hover-zone :hand) " drop-zone-hover"))
               :ref hand-ref}
              (d/h3 (app.i18n/app-tr [:cards/hand]))
              (when (< 0 (count hand))
@@ -20,4 +23,5 @@
                                                   :suit (:suit card)
                                                   :on-click #(card-click card)
                                                   :on-pointer-down (when on-card-pointer-down #(on-card-pointer-down card %))
-                                                  :dragging? (= (:id card) dragging-card-id)})))))))
+                                                  :dragging? (= (:id card) dragging-card-id)
+                                                  :holding? (= (:id card) holding-card-id)})))))))

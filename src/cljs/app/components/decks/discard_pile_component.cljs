@@ -3,9 +3,11 @@
             [helix.core :refer [$ defnc]]
             [helix.dom :as d]))
 
-(defnc discard-pile-component [{:keys [count discard-ref drop-active?]}]
+(defnc discard-pile-component [{:keys [count discard-ref drop-active? hover-zone]}]
   (d/article {:id "deck"
-              :class (str "discard" (when drop-active? " drop-zone-active"))
+              :class (str "discard"
+                           (when drop-active? " drop-zone-active")
+                           (when (= hover-zone :discard) " drop-zone-hover"))
               :ref discard-ref
               :style {:position "relative"}}
              (d/p {:id "deck-count"}
