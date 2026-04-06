@@ -5,7 +5,7 @@
             [helix.core :refer [$]]
             [helix.dom :as d]))
 
-(defn decks-section [& {:keys [game-state set-game-state discard-ref drop-active?]}]
+(defn decks-section [& {:keys [game-state set-game-state discard-ref drop-active? hover-zone]}]
   (let [deck-count (-> game-state :deck count)
         discard-pile-count (-> game-state :discard-pile count)
         hand-count (-> game-state :hand count)]
@@ -15,4 +15,5 @@
                     ($ card-list-component {:coll (-> game-state :discard-pile reverse)})
                     ($ discard-pile-component {:count discard-pile-count
                                               :discard-ref discard-ref
-                                              :drop-active? drop-active?})))))
+                                              :drop-active? drop-active?
+                                              :hover-zone hover-zone})))))
