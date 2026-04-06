@@ -13,7 +13,7 @@
 ;; ── Math utilities (ported from Swapy math.ts) ───────────────────────────────
 
 (defn- lerp [a b t] (+ a (* (- b a) t)))
-(defn- clamp [v mn mx] (js/Math.min (js/Math.max v mn) mx))
+(defn- clamp [v mn mx] (min (max v mn) mx))
 (defn- remap [a b c d v] (lerp c d (clamp (/ (- v a) (- b a)) 0 1)))
 
 ;; ── Zone detection ────────────────────────────────────────────────────────────
@@ -242,7 +242,7 @@
                       y    (.-clientY e)
                       dx   (- x start-x)
                       dy   (- y start-y)
-                      dist (js/Math.sqrt (+ (* dx dx) (* dy dy)))
+                      dist (Math/sqrt (+ (* dx dx) (* dy dy)))
                       zone (detect-over-zone x y table-ref discard-ref hand-ref)]
                   (mark-suppress-click!)
                   (if (< dist 8)
