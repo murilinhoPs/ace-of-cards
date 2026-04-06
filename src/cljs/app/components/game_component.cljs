@@ -51,23 +51,18 @@
     (fn []
       (when-let [el (.-current zone-ref)]
         (doseq [card (array-seq (.querySelectorAll el "[data-card-id]"))]
-          (let [card-id (.. card -dataset -cardId)
-                init    (get initial-rects card-id)
-                final   (.getBoundingClientRect card)]
-            (when init
-              (let [dx (- (.-left init) (.-left final))
-                    dy (- (.-top init)  (.-top final))]
-                (when (or (not= dx 0) (not= dy 0))
-                  ;; Invert: jump element back to its initial position
-                  (set! (.. card -style -transition) "none")
-                  (set! (.. card -style -transform)
-                        (str "translate(" dx "px," dy "px)"))
-                  ;; Play: animate back to final position on next frame
-                  (js/requestAnimationFrame
-                    (fn []
-                      (set! (.. card -style -transition)
-                            "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)")
-                      (set! (.. card -style -transform) "none"))))))))))))
+          (let [card-id (.. card -dataset -cardId)]
+            ;; Only animate cards NEW to this zone (not in the pre-action snapshot).
+            ;; Existing cards that reflowed are intentionally skipped — animating them
+            ;; caused the "shuffling" effect in the previous implementation.
+            (when-not (contains? initial-rects card-id)
+              (set! (.. card -style -transition) "none")
+              (set! (.. card -style -transform) "scale(0.75) translateY(12px)")
+              (js/requestAnimationFrame
+                (fn []
+                  (set! (.. card -style -transition)
+                        "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)")
+                  (set! (.. card -style -transform) "none"))))))))))
 
 ;; ── Lerp loop (ported from Swapy math.ts) ────────────────────────────────────
 ;; Runs via requestAnimationFrame; smoothly moves ghost card toward cursor.
