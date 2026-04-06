@@ -102,7 +102,6 @@ button:disabled:hover,
 
   html.drag-scroll-lock,
   body.drag-scroll-lock {
-    overflow: hidden;
     touch-action: none;
     overscroll-behavior: none;
   }
