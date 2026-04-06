@@ -36,33 +36,22 @@
       :else nil)))
 
 ;; ── FLIP animation (ported from Swapy flip.ts) ───────────────────────────────
-;; Captures bounding rects BEFORE a DOM mutation, then animates the delta AFTER.
+;; We already know which card was played, so we look it up directly by ID
+;; instead of diffing snapshots — simpler and works for any number of cards.
 
-(defn- capture-rects! [zone-ref]
-  (when-let [el (.-current zone-ref)]
-    (let [cards (.querySelectorAll el "[data-card-id]")]
-      (into {} (map (fn [card]
-                      [(.. card -dataset -cardId)
-                       (.getBoundingClientRect card)])
-                    (array-seq cards))))))
-
-(defn- flip-animate! [zone-ref initial-rects]
+(defn- flip-animate-card! [zone-ref new-card-id]
   (js/requestAnimationFrame
     (fn []
       (when-let [el (.-current zone-ref)]
-        (doseq [card (array-seq (.querySelectorAll el "[data-card-id]"))]
-          (let [card-id (.. card -dataset -cardId)]
-            ;; Only animate cards NEW to this zone (not in the pre-action snapshot).
-            ;; Existing cards that reflowed are intentionally skipped — animating them
-            ;; caused the "shuffling" effect in the previous implementation.
-            (when-not (contains? initial-rects card-id)
-              (set! (.. card -style -transition) "none")
-              (set! (.. card -style -transform) "scale(0.75) translateY(12px)")
-              (js/requestAnimationFrame
-                (fn []
-                  (set! (.. card -style -transition)
-                        "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)")
-                  (set! (.. card -style -transform) "none"))))))))))
+        (doseq [card-el (array-seq (.querySelectorAll el "[data-card-id]"))]
+          (when (= (.. card-el -dataset -cardId) (str new-card-id))
+            (set! (.. card-el -style -transition) "none")
+            (set! (.. card-el -style -transform) "scale(0.75) translateY(12px)")
+            (js/requestAnimationFrame
+              (fn []
+                (set! (.. card-el -style -transition)
+                      "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)")
+                (set! (.. card-el -style -transform) "none")))))))))
 
 ;; ── Lerp loop (ported from Swapy math.ts) ────────────────────────────────────
 ;; Runs via requestAnimationFrame; smoothly moves ghost card toward cursor.
@@ -252,10 +241,8 @@
                     ;; Drag — execute zone action
                     (cond
                       (and (= zone :table) (= source :hand))
-                      ;; FLIP: capture before play-action, animate after re-render
-                      (let [init-rects (capture-rects! table-ref)]
-                        (play-action game-state card set-game-state)
-                        (flip-animate! table-ref init-rects))
+                      (do (play-action game-state card set-game-state)
+                          (flip-animate-card! table-ref (:id card)))
 
                       (and (= zone :discard) (= source :hand))
                       (discard-action game-state card set-game-state)
